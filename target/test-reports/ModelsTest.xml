@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuite hostname="pedro-notebook" name="models.ModelsTest" tests="1" errors="0" failures="1" time="0.019">
+        <properties>
+      <property name="jline.esc.timeout" value="0"/><property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/><property name="sun.boot.library.path" value="/opt/java/jdk1.7.0_21/jre/lib/amd64"/><property name="java.vm.version" value="23.21-b01"/><property name="java.vm.vendor" value="Oracle Corporation"/><property name="java.vendor.url" value="http://java.oracle.com/"/><property name="path.separator" value=":"/><property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/><property name="file.encoding.pkg" value="sun.io"/><property name="user.country" value="BR"/><property name="sun.java.launcher" value="SUN_STANDARD"/><property name="sun.os.patch.level" value="unknown"/><property name="java.vm.specification.name" value="Java Virtual Machine Specification"/><property name="user.dir" value="/home/pedro/workspace/playtestdrive"/><property name="java.runtime.version" value="1.7.0_21-b11"/><property name="sbt.boot.properties" value="/opt/play-2.2.2/framework/sbt/sbt.boot.properties"/><property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/><property name="java.endorsed.dirs" value="/opt/java/jdk1.7.0_21/jre/lib/endorsed"/><property name="os.arch" value="amd64"/><property name="java.io.tmpdir" value="/tmp"/><property name="line.separator" value="
+"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="os.name" value="Linux"/><property name="sun.jnu.encoding" value="UTF-8"/><property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib:/home/pedro/workspace/playtestdrive/target/native_libraries/64bits"/><property name="sun.nio.ch.bugLevel" value=""/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.class.version" value="51.0"/><property name="play.home" value="/opt/play-2.2.2/framework"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="os.version" value="3.11-2-amd64"/><property name="user.home" value="/home/pedro"/><property name="user.timezone" value="America/Sao_Paulo"/><property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/><property name="file.encoding" value="UTF-8"/><property name="java.specification.version" value="1.7"/><property name="java.class.path" value="/opt/play-2.2.2/framework/sbt/sbt-launch.jar"/><property name="user.name" value="pedro"/><property name="jline.shutdownhook" value="false"/><property name="play.version" value="2.2.2"/><property name="java.vm.specification.version" value="1.7"/><property name="sun.java.command" value="/opt/play-2.2.2/framework/sbt/sbt-launch.jar play"/><property name="java.home" value="/opt/java/jdk1.7.0_21/jre"/><property name="sun.arch.data.model" value="64"/><property name="user.language" value="pt"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="awt.toolkit" value="sun.awt.X11.XToolkit"/><property name="java.vm.info" value="mixed mode"/><property name="java.version" value="1.7.0_21"/><property name="java.ext.dirs" value="/opt/java/jdk1.7.0_21/jre/lib/ext:/usr/java/packages/lib/ext"/><property name="sun.boot.class.path" value="/opt/java/jdk1.7.0_21/jre/lib/resources.jar:/opt/java/jdk1.7.0_21/jre/lib/rt.jar:/opt/java/jdk1.7.0_21/jre/lib/sunrsasign.jar:/opt/java/jdk1.7.0_21/jre/lib/jsse.jar:/opt/java/jdk1.7.0_21/jre/lib/jce.jar:/opt/java/jdk1.7.0_21/jre/lib/charsets.jar:/opt/java/jdk1.7.0_21/jre/lib/jfr.jar:/opt/java/jdk1.7.0_21/jre/classes"/><property name="java.vendor" value="Oracle Corporation"/><property name="file.separator" value="/"/><property name="sbt.scala.version" value="2.10.3"/><property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.cpu.endian" value="little"/><property name="sun.cpu.isalist" value=""/>
+    </properties>
+        <testcase classname="models.ModelsTest" name="createAndRetrieveUser" time="0.0">
+      <failure message="The default EbeanServer has not been defined? This is normally set via the ebean.datasource.default property. Otherwise it should be registered programatically via registerServer()" type="sbt.ForkMain$ForkError">
+              sbt.ForkMain$ForkError: The default EbeanServer has not been defined? This is normally set via the ebean.datasource.default property. Otherwise it should be registered programatically via registerServer()
+	at com.avaje.ebean.Ebean$ServerManager.getPrimaryServer(Ebean.java:178)
+	at com.avaje.ebean.Ebean$ServerManager.access$300(Ebean.java:128)
+	at com.avaje.ebean.Ebean.save(Ebean.java:453)
+	at play.db.ebean.Model.save(Model.java:91)
+	at models.ModelsTest.createAndRetrieveUser(ModelsTest.java:13)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runners.Suite.runChild(Suite.java:127)
+	at org.junit.runners.Suite.runChild(Suite.java:26)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:160)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:138)
+	at com.novocode.junit.JUnitRunner.run(JUnitRunner.java:90)
+	at sbt.RunnerWrapper$1.runRunner2(FrameworkWrapper.java:220)
+	at sbt.RunnerWrapper$1.execute(FrameworkWrapper.java:233)
+	at sbt.ForkMain$Run.runTest(ForkMain.java:239)
+	at sbt.ForkMain$Run.runTestSafe(ForkMain.java:211)
+	at sbt.ForkMain$Run.runTests(ForkMain.java:187)
+	at sbt.ForkMain$Run.run(ForkMain.java:251)
+	at sbt.ForkMain.main(ForkMain.java:97)
+
+            </failure>
+    </testcase>
+        <system-out>
+          
+        </system-out>
+        <system-err>
+          
+        </system-err>
+      </testsuite>
