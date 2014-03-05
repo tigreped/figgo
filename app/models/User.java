@@ -17,6 +17,7 @@ public class User extends Model {
   @Required
   public String email;
   public String name;
+  @Required
   public String password;
 
   // Class constructor
