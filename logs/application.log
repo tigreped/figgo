@@ -1,74 +1,12 @@
-2014-03-05 17:09:21,102 - [INFO] - from play in pool-28-thread-4 
+2014-03-06 00:00:47,934 - [INFO] - from play in pool-59-thread-1 
 Listening for HTTP on /0:0:0:0:0:0:0:0:9000
 
-2014-03-05 17:09:36,241 - [INFO] - from play in play-internal-execution-context-1 
-database [default] connected at jdbc:h2:mem:play
-
-2014-03-05 17:09:36,305 - [ERROR] - from application in New I/O worker #1 
+2014-03-06 00:00:56,768 - [ERROR] - from application in New I/O worker #1 
 
 
-! @6heii5oke - Internal server error, for (GET) [/login] ->
+! @6hekk6495 - Internal server error, for (GET) [/] ->
 
-play.api.Configuration$$anon$1: Configuration error[path parameter: Invalid path ' - could not find datasource for datasource.default': Token not allowed in path expression: '-' (Invalid number: '-') (you can double-quote this token if you really want it here)]
-	at play.api.Configuration$.play$api$Configuration$$configError(Configuration.scala:92) ~[play_2.10.jar:2.2.2]
-	at play.api.Configuration.reportError(Configuration.scala:570) ~[play_2.10.jar:2.2.2]
-	at play.Configuration.reportError(Configuration.java:307) ~[play_2.10.jar:2.2.2]
-	at play.db.ebean.EbeanPlugin.onStart(EbeanPlugin.java:47) ~[play-java-ebean_2.10.jar:2.2.2]
-	at play.api.Play$$anonfun$start$1$$anonfun$apply$mcV$sp$1.apply(Play.scala:88) ~[play_2.10.jar:2.2.2]
-	at play.api.Play$$anonfun$start$1$$anonfun$apply$mcV$sp$1.apply(Play.scala:88) ~[play_2.10.jar:2.2.2]
-	at scala.collection.immutable.List.foreach(List.scala:318) ~[scala-library.jar:na]
-	at play.api.Play$$anonfun$start$1.apply$mcV$sp(Play.scala:88) ~[play_2.10.jar:2.2.2]
-	at play.api.Play$$anonfun$start$1.apply(Play.scala:88) ~[play_2.10.jar:2.2.2]
-	at play.api.Play$$anonfun$start$1.apply(Play.scala:88) ~[play_2.10.jar:2.2.2]
-	at play.utils.Threads$.withContextClassLoader(Threads.scala:18) ~[play_2.10.jar:2.2.2]
-	at play.api.Play$.start(Play.scala:87) ~[play_2.10.jar:2.2.2]
-	at play.core.ReloadableApplication$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(ApplicationProvider.scala:139) ~[play_2.10.jar:2.2.2]
-	at play.core.ReloadableApplication$$anonfun$get$1$$anonfun$apply$1$$anonfun$1.apply(ApplicationProvider.scala:112) ~[play_2.10.jar:2.2.2]
-	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
-	at play.core.ReloadableApplication$$anonfun$get$1$$anonfun$apply$1.apply(ApplicationProvider.scala:112) ~[play_2.10.jar:2.2.2]
-	at play.core.ReloadableApplication$$anonfun$get$1$$anonfun$apply$1.apply(ApplicationProvider.scala:110) ~[play_2.10.jar:2.2.2]
-	at scala.util.Success.flatMap(Try.scala:200) ~[scala-library.jar:na]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:110) ~[play_2.10.jar:2.2.2]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:102) ~[play_2.10.jar:2.2.2]
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library.jar:na]
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library.jar:na]
-	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library.jar:na]
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library.jar:na]
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library.jar:na]
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library.jar:na]
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library.jar:na]
-Caused by: com.typesafe.config.ConfigException$BadPath: path parameter: Invalid path ' - could not find datasource for datasource.default': Token not allowed in path expression: '-' (Invalid number: '-') (you can double-quote this token if you really want it here)
-	at com.typesafe.config.impl.Parser.parsePathExpression(Parser.java:934) ~[config.jar:na]
-	at com.typesafe.config.impl.Parser.parsePath(Parser.java:974) ~[config.jar:na]
-	at com.typesafe.config.impl.Path.newPath(Path.java:220) ~[config.jar:na]
-	at com.typesafe.config.impl.SimpleConfig.hasPath(SimpleConfig.java:71) ~[config.jar:na]
-	at play.api.Configuration.reportError(Configuration.scala:570) ~[play_2.10.jar:2.2.2]
-	at play.api.db.BoneCPApi.play$api$db$BoneCPApi$$error(DB.scala:278) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.api.db.BoneCPApi$$anonfun$getDataSource$5.apply(DB.scala:426) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.api.db.BoneCPApi$$anonfun$getDataSource$5.apply(DB.scala:426) ~[play-jdbc_2.10.jar:2.2.2]
-	at scala.Option.getOrElse(Option.scala:120) ~[scala-library.jar:na]
-	at play.api.db.BoneCPApi.getDataSource(DB.scala:426) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.api.db.DB$$anonfun$getDataSource$1.apply(DB.scala:142) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.api.db.DB$$anonfun$getDataSource$1.apply(DB.scala:142) ~[play-jdbc_2.10.jar:2.2.2]
-	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
-	at play.api.db.DB$.getDataSource(DB.scala:142) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.api.db.DB.getDataSource(DB.scala) ~[play-jdbc_2.10.jar:2.2.2]
-	at play.db.DB.getDataSource(DB.java:22) ~[play-java-jdbc_2.10.jar:2.2.2]
-	at play.db.ebean.EbeanPlugin.onStart(EbeanPlugin.java:45) ~[play-java-ebean_2.10.jar:2.2.2]
-	... 23 common frames omitted
-
-2014-03-05 17:10:06,044 - [INFO] - from play in play-internal-execution-context-1 
-database [default] connected at jdbc:h2:mem:play
-
-2014-03-05 17:10:06,996 - [INFO] - from play in play-internal-execution-context-1 
-Application started (Dev)
-
-2014-03-05 17:19:32,861 - [ERROR] - from application in New I/O worker #4 
-
-
-! @6heijdn7f - Internal server error, for (GET) [/login] ->
-
-play.PlayExceptions$CompilationException: Compilation error[error: non-static variable loginForm cannot be referenced from a static context]
+play.PlayExceptions$CompilationException: Compilation error[error: incompatible types]
 	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
 	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
 	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
@@ -89,9 +27,130 @@ play.PlayExceptions$CompilationException: Compilation error[error: non-static va
 	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library.jar:na]
 	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library.jar:na]
 
-2014-03-05 17:19:54,070 - [INFO] - from play in play-internal-execution-context-1 
-database [default] connected at jdbc:h2:mem:play
+2014-03-06 00:00:56,870 - [WARN] - from play in New I/O worker #1 
+No application found at invoker init
 
-2014-03-05 17:19:54,140 - [INFO] - from play in play-internal-execution-context-1 
+2014-03-06 00:01:40,915 - [ERROR] - from application in New I/O worker #1 
+
+
+! @6hekk8hhj - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$CompilationException: Compilation error[error: variable user might not have been initialized]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14.apply(PlayReloader.scala:304) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14.apply(PlayReloader.scala:298) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:298) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:296) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:296) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:104) ~[play_2.10.jar:2.2.2]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:102) ~[play_2.10.jar:2.2.2]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library.jar:na]
+
+2014-03-06 00:02:08,055 - [ERROR] - from application in New I/O worker #1 
+
+
+! @6hekka5lf - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$CompilationException: Compilation error[error: missing return statement]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14$$anonfun$apply$16.apply(PlayReloader.scala:304) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14.apply(PlayReloader.scala:304) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2$$anonfun$apply$14.apply(PlayReloader.scala:298) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:298) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:296) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:296) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:104) ~[play_2.10.jar:2.2.2]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:102) ~[play_2.10.jar:2.2.2]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library.jar:na]
+
+2014-03-06 00:03:18,772 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-06 00:04:52,394 - [ERROR] - from play in play-internal-execution-context-1 
+Cannot invoke the action, eventually got an error: com.mongodb.MongoException$Network: can't call something : pedro-notebook/127.0.1.1:27017/play
+
+2014-03-06 00:04:52,419 - [ERROR] - from application in play-internal-execution-context-1 
+
+
+! @6hekkjep5 - Internal server error, for (GET) [/users] ->
+
+play.api.Application$$anon$1: Execution exception[[Network: can't call something : pedro-notebook/127.0.1.1:27017/play]]
+	at play.api.Application$class.handleError(Application.scala:293) ~[play_2.10.jar:2.2.2]
+	at play.api.DefaultApplication.handleError(Application.scala:399) [play_2.10.jar:2.2.2]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$2$$anonfun$applyOrElse$3.apply(PlayDefaultUpstreamHandler.scala:261) [play_2.10.jar:2.2.2]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$2$$anonfun$applyOrElse$3.apply(PlayDefaultUpstreamHandler.scala:261) [play_2.10.jar:2.2.2]
+	at scala.Option.map(Option.scala:145) [scala-library.jar:na]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$2.applyOrElse(PlayDefaultUpstreamHandler.scala:261) [play_2.10.jar:2.2.2]
+	at play.core.server.netty.PlayDefaultUpstreamHandler$$anonfun$2.applyOrElse(PlayDefaultUpstreamHandler.scala:257) [play_2.10.jar:2.2.2]
+	at scala.concurrent.Future$$anonfun$recoverWith$1.apply(Future.scala:344) [scala-library.jar:na]
+	at scala.concurrent.Future$$anonfun$recoverWith$1.apply(Future.scala:343) [scala-library.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) [scala-library.jar:na]
+	at play.api.libs.iteratee.Execution$$anon$1.execute(Execution.scala:43) [play-iteratees_2.10.jar:2.2.2]
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:40) [scala-library.jar:na]
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:248) [scala-library.jar:na]
+	at scala.concurrent.Promise$class.complete(Promise.scala:55) [scala-library.jar:na]
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:153) [scala-library.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) [scala-library.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) [scala-library.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) [scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) [scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) [scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) [scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) [scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) [scala-library.jar:na]
+Caused by: com.mongodb.MongoException$Network: can't call something : pedro-notebook/127.0.1.1:27017/play
+	at com.mongodb.DBTCPConnector.call(DBTCPConnector.java:227) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBApiLayer$MyCollection.__find(DBApiLayer.java:305) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBCursor._check(DBCursor.java:369) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBCursor._hasNext(DBCursor.java:498) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBCursor._fill(DBCursor.java:558) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBCursor.toArray(DBCursor.java:596) ~[mongo-java-driver-2.7.2.jar:na]
+	at net.vz.mongodb.jackson.DBCursor.toArray(DBCursor.java:383) ~[mongo-jackson-mapper-1.4.1.jar:na]
+	at net.vz.mongodb.jackson.DBCursor.toArray(DBCursor.java:370) ~[mongo-jackson-mapper-1.4.1.jar:na]
+	at models.User.all(User.java:28) ~[na:na]
+	at controllers.Application.users(Application.java:21) ~[na:na]
+	at Routes$$anonfun$routes$1$$anonfun$applyOrElse$5$$anonfun$apply$5.apply(routes_routing.scala:101) ~[na:na]
+	at Routes$$anonfun$routes$1$$anonfun$applyOrElse$5$$anonfun$apply$5.apply(routes_routing.scala:101) ~[na:na]
+	at play.core.Router$HandlerInvoker$$anon$7$$anon$2.invocation(Router.scala:183) ~[play_2.10.jar:2.2.2]
+	at play.core.Router$Routes$$anon$1.invocation(Router.scala:377) ~[play_2.10.jar:2.2.2]
+	at play.core.j.JavaAction$$anon$1.call(JavaAction.scala:56) ~[play_2.10.jar:2.2.2]
+	at play.core.j.JavaAction$$anon$3.apply(JavaAction.scala:91) ~[play_2.10.jar:2.2.2]
+	at play.core.j.JavaAction$$anon$3.apply(JavaAction.scala:90) ~[play_2.10.jar:2.2.2]
+	at play.core.j.FPromiseHelper$$anonfun$flatMap$1.apply(FPromiseHelper.scala:82) ~[play_2.10.jar:2.2.2]
+	at play.core.j.FPromiseHelper$$anonfun$flatMap$1.apply(FPromiseHelper.scala:82) ~[play_2.10.jar:2.2.2]
+	at scala.concurrent.Future$$anonfun$flatMap$1.apply(Future.scala:251) ~[scala-library.jar:na]
+	at scala.concurrent.Future$$anonfun$flatMap$1.apply(Future.scala:249) ~[scala-library.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) [scala-library.jar:na]
+	at play.core.j.HttpExecutionContext$$anon$2.run(HttpExecutionContext.scala:37) ~[play_2.10.jar:2.2.2]
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:42) ~[akka-actor_2.10.jar:2.2.0]
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:386) ~[akka-actor_2.10.jar:2.2.0]
+	... 4 common frames omitted
+Caused by: java.io.IOException: couldn't connect to [pedro-notebook/127.0.1.1:27017] bc:java.net.ConnectException: Conexão recusada
+	at com.mongodb.DBPort._open(DBPort.java:228) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBPort.go(DBPort.java:112) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBPort.call(DBPort.java:79) ~[mongo-java-driver-2.7.2.jar:na]
+	at com.mongodb.DBTCPConnector.call(DBTCPConnector.java:218) ~[mongo-java-driver-2.7.2.jar:na]
+	... 28 common frames omitted
+
+2014-03-06 00:05:56,467 - [INFO] - from play in play-internal-execution-context-1 
 Application started (Dev)
 

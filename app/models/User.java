@@ -2,47 +2,50 @@ package models;
 
 import java.util.*;
 
-import play.db.ebean.*;
-import com.avaje.ebean.*;
-import play.data.validation.Constraints.*;
+import play.modules.mongodb.jackson.MongoDB;
+import net.vz.mongodb.jackson.JacksonDBCollection;
+import net.vz.mongodb.jackson.Id;
+import net.vz.mongodb.jackson.ObjectId;
+import net.vz.mongodb.jackson.DBCursor;
+import org.codehaus.jackson.annotate.JsonProperty;
+//import com.mongodb.DBCursor;
 
 import javax.persistence.*;
 
-@Entity
-public class User extends Model {
+public class User {
 
   @Id
-  public Long id;
+  @ObjectId
+  public String id;
   
-  @Required
   public String email;
   public String name;
-  @Required
   public String password;
 
-  // Class constructor
-  public User (Long id, String email, String name, String password) {
-    this.id = id;
-    this.email = email;
-    this.name = name;
-    this.password = password;
-  }
-
-  public static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
+  private static JacksonDBCollection<User, String> collection = MongoDB.getCollection("users", User.class, String.class);
 
   public static List<User> all() {
-    return find.all();
+    return getCollection().find().toArray();
   }
 
   public static void create(User user) {
-    user.save();
+    getCollection().save(user);
   }
 
-  public static void delete(Long id) {
-    find.ref(id).delete();
+  public static void delete(String id) {
+    User user = getCollection().findOneById(id);
+    if (user != null)
+      getCollection().remove(user);
   }
 
   public static User authenticate(String email, String password) {
-    return find.where().eq("email", email).eq("password", password).findUnique();
+    DBCursor cursor = getCollection().find().is("email", email).is("password", password);
+    if (cursor.hasNext())
+      return (User)cursor.next();
+    return null;
   }
+
+  public static JacksonDBCollection<User, String> getCollection() {
+    return collection;
+  }  
 }

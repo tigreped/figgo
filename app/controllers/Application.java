@@ -37,7 +37,7 @@ public class Application extends Controller {
     }
   }
 
-  public static Result deleteUser(Long id) {
+  public static Result deleteUser(String id) {
     User.delete(id);
     return redirect(
       routes.Application.users()

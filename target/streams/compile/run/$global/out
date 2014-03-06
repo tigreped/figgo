@@ -1,4 +1,4 @@
-net.contentobjects.jnotify.linux.JNotifyException_linux: Error removing watch 77
+net.contentobjects.jnotify.linux.JNotifyException_linux: Error removing watch 18
 	at net.contentobjects.jnotify.linux.JNotify_linux.removeWatch(Unknown Source)
 	at net.contentobjects.jnotify.linux.JNotifyAdapterLinux.unwatch(Unknown Source)
 	at net.contentobjects.jnotify.linux.JNotifyAdapterLinux.removeWatch(Unknown Source)

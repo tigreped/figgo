@@ -1,6 +1,6 @@
 // @SOURCE:/home/pedro/workspace/playtestdrive/conf/routes
-// @HASH:cd83655e0f50d5f15d1abc727cffebb268a10e1c
-// @DATE:Wed Mar 05 15:55:56 BRT 2014
+// @HASH:56dd1addf7f86fc8189ad78dbbc0c70977029699
+// @DATE:Wed Mar 05 23:25:32 BRT 2014
 
 
 import play.core._
@@ -43,7 +43,19 @@ private[this] lazy val controllers_Application_login2 = Route("GET", PathPattern
 // @LINE:13
 private[this] lazy val controllers_Application_authenticate3 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("login"))))
         
-def documentation = List(("""GET""", prefix,"""controllers.Application.index()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.login()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.authenticate()""")).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
+
+// @LINE:16
+private[this] lazy val controllers_Application_users4 = Route("GET", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users"))))
+        
+
+// @LINE:17
+private[this] lazy val controllers_Application_newUser5 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users"))))
+        
+
+// @LINE:18
+private[this] lazy val controllers_Application_deleteUser6 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users/"),DynamicPart("id", """[^/]+""",true),StaticPart("/delete"))))
+        
+def documentation = List(("""GET""", prefix,"""controllers.Application.index()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.login()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.authenticate()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.users()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.newUser()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users/$id<[^/]+>/delete""","""controllers.Application.deleteUser(id:String)""")).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
   case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
   case l => s ++ l.asInstanceOf[List[(String,String,String)]] 
 }}
@@ -79,6 +91,30 @@ case controllers_Application_login2(params) => {
 case controllers_Application_authenticate3(params) => {
    call { 
         invokeHandler(controllers.Application.authenticate(), HandlerDef(this, "controllers.Application", "authenticate", Nil,"POST", """""", Routes.prefix + """login"""))
+   }
+}
+        
+
+// @LINE:16
+case controllers_Application_users4(params) => {
+   call { 
+        invokeHandler(controllers.Application.users(), HandlerDef(this, "controllers.Application", "users", Nil,"GET", """Users""", Routes.prefix + """users"""))
+   }
+}
+        
+
+// @LINE:17
+case controllers_Application_newUser5(params) => {
+   call { 
+        invokeHandler(controllers.Application.newUser(), HandlerDef(this, "controllers.Application", "newUser", Nil,"POST", """""", Routes.prefix + """users"""))
+   }
+}
+        
+
+// @LINE:18
+case controllers_Application_deleteUser6(params) => {
+   call(params.fromPath[String]("id", None)) { (id) =>
+        invokeHandler(controllers.Application.deleteUser(id), HandlerDef(this, "controllers.Application", "deleteUser", Seq(classOf[String]),"POST", """""", Routes.prefix + """users/$id<[^/]+>/delete"""))
    }
 }
         

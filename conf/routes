@@ -15,4 +15,4 @@ POST 	/login			    controllers.Application.authenticate()
 #Users
 GET 	/users			    controllers.Application.users()
 POST 	/users			    controllers.Application.newUser()
-POST	/users/:id/delete	    controllers.Application.deleteUser(id: Long)
+POST	/users/:id/delete	    controllers.Application.deleteUser(id: String)
