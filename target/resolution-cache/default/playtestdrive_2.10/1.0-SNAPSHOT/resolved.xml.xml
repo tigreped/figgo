@@ -4,7 +4,11 @@
 		module="playtestdrive_2.10"
 		revision="1.0-SNAPSHOT"
 		status="integration"
+<<<<<<< HEAD
 		publication="20140307124315"
+=======
+		publication="20140307132920"
+>>>>>>> auth
 	>
 		<description>
 		playtestdrive

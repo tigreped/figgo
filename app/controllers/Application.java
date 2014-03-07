@@ -38,7 +38,11 @@ public class Application extends Controller {
 	}
 
 	public static Result login() {
-		return ok(login.render(Form.form(Login.class)));
+		return ok(
+			login.render(
+				Form.form(Login.class), User.findByEmail(session().get("email"))
+			)
+		);
 	}
 
 	public static Result logout() {
@@ -50,7 +54,7 @@ public class Application extends Controller {
 	public static Result authenticate() {
 		Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 		if (loginForm.hasErrors()) {
-			return badRequest(login.render(loginForm));
+			return badRequest(login.render(loginForm, null));
 		} else {
 			session().clear();
 			session("email", loginForm.get().email);
