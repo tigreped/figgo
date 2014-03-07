@@ -154,3 +154,21 @@ Caused by: java.io.IOException: couldn't connect to [pedro-notebook/127.0.1.1:27
 2014-03-06 00:05:56,467 - [INFO] - from play in play-internal-execution-context-1 
 Application started (Dev)
 
+2014-03-07 12:43:50,313 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-07 12:48:42,337 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-07 13:04:29,643 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-07 13:05:29,091 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-07 13:11:27,988 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+
+2014-03-07 13:16:23,371 - [INFO] - from play in play-internal-execution-context-1 
+Application started (Dev)
+

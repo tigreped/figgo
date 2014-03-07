@@ -1,6 +1,6 @@
 // @SOURCE:/home/pedro/workspace/playtestdrive/conf/routes
-// @HASH:56dd1addf7f86fc8189ad78dbbc0c70977029699
-// @DATE:Wed Mar 05 23:25:32 BRT 2014
+// @HASH:5c896d7fe1589ea3574f54d0e9146cdd01e01659
+// @DATE:Fri Mar 07 13:16:09 BRT 2014
 
 import Routes.{prefix => _prefix, defaultPrefix => _defaultPrefix}
 import play.core._
@@ -13,8 +13,9 @@ import play.libs.F
 import Router.queryString
 
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -35,8 +36,9 @@ def at(file:String): Call = {
 }
                           
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -44,13 +46,19 @@ def at(file:String): Call = {
 class ReverseApplication {
     
 
-// @LINE:16
+// @LINE:19
 def users(): Call = {
    Call("GET", _prefix + { _defaultPrefix } + "users")
 }
                                                 
 
-// @LINE:18
+// @LINE:16
+def logout(): Call = {
+   Call("GET", _prefix + { _defaultPrefix } + "logout")
+}
+                                                
+
+// @LINE:21
 def deleteUser(id:String): Call = {
    Call("POST", _prefix + { _defaultPrefix } + "users/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)) + "/delete")
 }
@@ -62,7 +70,7 @@ def authenticate(): Call = {
 }
                                                 
 
-// @LINE:17
+// @LINE:20
 def newUser(): Call = {
    Call("POST", _prefix + { _defaultPrefix } + "users")
 }
@@ -86,8 +94,9 @@ def login(): Call = {
                   
 
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -113,8 +122,9 @@ def at : JavascriptReverseRoute = JavascriptReverseRoute(
 }
               
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -122,7 +132,7 @@ def at : JavascriptReverseRoute = JavascriptReverseRoute(
 class ReverseApplication {
     
 
-// @LINE:16
+// @LINE:19
 def users : JavascriptReverseRoute = JavascriptReverseRoute(
    "controllers.Application.users",
    """
@@ -133,7 +143,18 @@ def users : JavascriptReverseRoute = JavascriptReverseRoute(
 )
                         
 
-// @LINE:18
+// @LINE:16
+def logout : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.logout",
+   """
+      function() {
+      return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "logout"})
+      }
+   """
+)
+                        
+
+// @LINE:21
 def deleteUser : JavascriptReverseRoute = JavascriptReverseRoute(
    "controllers.Application.deleteUser",
    """
@@ -155,7 +176,7 @@ def authenticate : JavascriptReverseRoute = JavascriptReverseRoute(
 )
                         
 
-// @LINE:17
+// @LINE:20
 def newUser : JavascriptReverseRoute = JavascriptReverseRoute(
    "controllers.Application.newUser",
    """
@@ -194,8 +215,9 @@ def login : JavascriptReverseRoute = JavascriptReverseRoute(
         
 
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -217,8 +239,9 @@ def at(path:String, file:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.
 }
                           
 
-// @LINE:18
-// @LINE:17
+// @LINE:21
+// @LINE:20
+// @LINE:19
 // @LINE:16
 // @LINE:13
 // @LINE:12
@@ -226,13 +249,19 @@ def at(path:String, file:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.
 class ReverseApplication {
     
 
-// @LINE:16
+// @LINE:19
 def users(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
    controllers.Application.users(), HandlerDef(this, "controllers.Application", "users", Seq(), "GET", """Users""", _prefix + """users""")
 )
                       
 
-// @LINE:18
+// @LINE:16
+def logout(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.logout(), HandlerDef(this, "controllers.Application", "logout", Seq(), "GET", """Logout""", _prefix + """logout""")
+)
+                      
+
+// @LINE:21
 def deleteUser(id:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
    controllers.Application.deleteUser(id), HandlerDef(this, "controllers.Application", "deleteUser", Seq(classOf[String]), "POST", """""", _prefix + """users/$id<[^/]+>/delete""")
 )
@@ -244,7 +273,7 @@ def authenticate(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
 )
                       
 
-// @LINE:17
+// @LINE:20
 def newUser(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
    controllers.Application.newUser(), HandlerDef(this, "controllers.Application", "newUser", Seq(), "POST", """""", _prefix + """users""")
 )
