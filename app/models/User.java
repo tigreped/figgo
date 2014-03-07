@@ -42,7 +42,6 @@ public class User {
 				.is("password", password);
 		if (cursor.hasNext()) {
 			User user = (User) cursor.next();
-			System.out.println("User.authenticate() - email:" + user.email);
 			return user;
 		}
 		return null;
@@ -50,5 +49,14 @@ public class User {
 
 	public static JacksonDBCollection<User, String> getCollection() {
 		return collection;
+	}
+
+	public static User findByEmail(String username) {
+		DBCursor cursor = getCollection().find().is("email", username);
+		if (cursor.hasNext()) {
+			User user = (User) cursor.next();
+			return user;
+		}
+		return null;
 	}
 }
