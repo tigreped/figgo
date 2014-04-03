@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.vz.mongodb.jackson.DBCursor;
@@ -18,10 +19,11 @@ public class User {
 
 	public String email;
 	public String name;
+	public ArrayList<String> roles;
 	public String password;
 
-	private static JacksonDBCollection<User, String> collection = MongoDB
-			.getCollection("users", User.class, String.class);
+	private static JacksonDBCollection<User, String> collection = Collections
+			.getUserCollection();
 
 	public static List<User> all() {
 		return getCollection().find().toArray();
@@ -37,11 +39,18 @@ public class User {
 			getCollection().remove(user);
 	}
 
-	public static User authenticate(String email, String password) {
-		DBCursor cursor = getCollection().find().is("email", email)
-				.is("password", password);
+	public static User findByEmail(String email) {
+		DBCursor<User> cursor = getCollection().find().is("email", email);
 		if (cursor.hasNext()) {
-			User user = (User) cursor.next();
+			User user = cursor.next();
+			return user;
+		}
+		return null;
+	}
+
+	public static User authenticate(String email, String password) {
+		User user = findByEmail(email);
+		if (user.email.equalsIgnoreCase(password)) {
 			return user;
 		}
 		return null;
@@ -51,12 +60,65 @@ public class User {
 		return collection;
 	}
 
-	public static User findByEmail(String username) {
-		DBCursor cursor = getCollection().find().is("email", username);
+	public ArrayList<String> getRoles() {
+		return this.roles;
+	}
+
+	/**
+	 * Retrieve user's list of roles
+	 * 
+	 * @param username
+	 * @return a list with the roles associated to the user
+	 */
+	public static ArrayList<String> getUserRoles(String username) {
+		DBCursor<User> cursor = getCollection().find().is("email", username);
 		if (cursor.hasNext()) {
-			User user = (User) cursor.next();
-			return user;
+			User user = cursor.next();
+			return user.getRoles();
 		}
 		return null;
+	}
+
+	/**
+	 * Remove role from user role list, if there is such a role and such a user.
+	 * 
+	 * @param user
+	 * @param role
+	 */
+	public static void removeUserRole(User user, String role) {
+		if (!user.equals(null)) {
+			// If it finds such a role in the user roles
+			if (user.roles.indexOf(role) != -1) {
+				// remove it from its role list
+				user.roles.remove(role);
+				// update object on MongoDB
+				getCollection().save(user);
+			}
+		}
+	}
+
+	/**
+	 * Add role to user role list, if there is such a user
+	 * 
+	 * @param user
+	 * @param role
+	 */
+	public static void addUserRole(User user, String role) {
+		// Check if the user is not null 
+		if (!user.equals(null)) {
+			// Check for empty roles list
+			if (user.roles.equals(null)) {
+				user.roles = new ArrayList<String>();
+				user.roles.add(role);
+				getCollection().save(user);
+			}
+			// Check if role already exists
+			else {
+				if (!user.roles.contains(role)) {
+					user.roles.add(role);
+					getCollection().save(user);
+				}
+			}
+		}
 	}
 }

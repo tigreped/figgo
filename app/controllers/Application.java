@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Role;
 import models.User;
 import play.data.Form;
 import play.mvc.Controller;
@@ -11,6 +12,7 @@ import views.html.login;
 public class Application extends Controller {
 
 	private static Form<User> userForm = Form.form(User.class);
+	private static Form<Role> roleForm = Form.form(Role.class);
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
@@ -37,6 +39,27 @@ public class Application extends Controller {
 		return redirect(routes.Application.users());
 	}
 
+	@Security.Authenticated(Secured.class)
+	public static Result roles() {
+		return ok(views.html.roles.render(Role.all(), roleForm));
+	}
+
+	public static Result newRole() {
+		Form<Role> filledForm = roleForm.bindFromRequest();
+		filledForm.
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.roles.render(Role.all(), filledForm));
+		} else {
+			Role.create(filledForm.get());
+			return redirect(routes.Application.roles());
+		}
+	}
+
+	public static Result deleteRole(String id) {
+		Role.delete(id);
+		return redirect(routes.Application.roles());
+	}
+	
 	public static Result login() {
 		return ok(
 			login.render(

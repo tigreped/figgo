@@ -19,3 +19,8 @@ GET		/logout						controllers.Application.logout()
 GET 	/users			    		controllers.Application.users()
 POST 	/users			    		controllers.Application.newUser()
 POST	/users/:id/delete	    	controllers.Application.deleteUser(id: String)
+
+#Roles
+GET 	/roles			    		controllers.Application.roles()
+POST 	/roles			    		controllers.Application.newRole()
+POST	/roles/:id/delete	    	controllers.Application.deleteRole(id: String)
