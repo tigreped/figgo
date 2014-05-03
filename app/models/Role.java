@@ -9,8 +9,6 @@ import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
 import play.modules.mongodb.jackson.MongoDB;
 
-//import com.mongodb.DBCursor;
-
 public class Role {
 
 	@Id
@@ -19,9 +17,6 @@ public class Role {
 
 	public String name;
 	public ArrayList<String> permissions;
-
-	private static JacksonDBCollection<Role, String> collection = MongoDB
-			.getCollection("roles", Role.class, String.class);
 
 	public static List<Role> all() {
 		return getCollection().find().toArray();
@@ -47,7 +42,7 @@ public class Role {
 	}
 	
 	public static JacksonDBCollection<Role, String> getCollection() {
-		return collection;
+		return Collections.getRoleCollection();
 	}
 		
 	public ArrayList<String> getPermissions() {
@@ -73,7 +68,7 @@ public class Role {
 	 * @param role
 	 * @param permission
 	 */
-	public static void addPermission(Role role, String permission) {
+	public static void addPermission(Role role) {
 		if (!role.equals(null)) {
 			// Has no permissions, create ArrayList and add
 			if (role.permissions.equals(null)) {

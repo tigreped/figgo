@@ -7,9 +7,6 @@ import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
-import play.modules.mongodb.jackson.MongoDB;
-
-//import com.mongodb.DBCursor;
 
 public class User {
 
@@ -104,7 +101,7 @@ public class User {
 	 * @param role
 	 */
 	public static void addUserRole(User user, String role) {
-		// Check if the user is not null 
+		// Check if the user is not null
 		if (!user.equals(null)) {
 			// Check for empty roles list
 			if (user.roles.equals(null)) {

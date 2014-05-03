@@ -11,6 +11,10 @@
       <li>
         <strong>Name:</strong> @role.name
 		<strong>Permissions:</strong> @role.permissions
+		@form(routes.Application.addPermission(role.id) ) {
+			@inputText(roleForm("permission"))
+			<input type="submit" value="add">
+		}
 		@form(routes.Application.deleteRole(role.id)) {
 	 		<input type="submit" value="delete">
 		}
@@ -22,7 +26,6 @@
   
   @form(routes.Application.newRole()) {
     @inputText(roleForm("name"))
-    @inputMultiple(roleForm("permission"))
     <input type="submit" value="create">
   }
 }

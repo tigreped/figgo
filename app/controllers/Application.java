@@ -46,7 +46,6 @@ public class Application extends Controller {
 
 	public static Result newRole() {
 		Form<Role> filledForm = roleForm.bindFromRequest();
-		filledForm.
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.roles.render(Role.all(), filledForm));
 		} else {
@@ -58,6 +57,16 @@ public class Application extends Controller {
 	public static Result deleteRole(String id) {
 		Role.delete(id);
 		return redirect(routes.Application.roles());
+	}
+	
+	public static Result addPermission() {
+		Form<Role> filledForm = roleForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.roles.render(Role.all(), filledForm));
+		} else {
+			Role.addPermission(filledForm.get().);
+			return redirect(routes.Application.roles());
+		}
 	}
 	
 	public static Result login() {
