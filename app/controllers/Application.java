@@ -59,12 +59,14 @@ public class Application extends Controller {
 		return redirect(routes.Application.roles());
 	}
 	
-	public static Result addPermission() {
+	public static Result addPermission(String id) {
 		Form<Role> filledForm = roleForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.roles.render(Role.all(), filledForm));
 		} else {
-			Role.addPermission(filledForm.get().);
+			Role.addPermission(id, filledForm.field("permission").value());
+			// DEBUG
+			System.out.println(id + " | Permission: " + filledForm.field("permission"));
 			return redirect(routes.Application.roles());
 		}
 	}

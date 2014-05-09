@@ -68,8 +68,10 @@ public class Role {
 	 * @param role
 	 * @param permission
 	 */
-	public static void addPermission(Role role) {
-		if (!role.equals(null)) {
+	public static void addPermission(String id, String permission) {
+		DBCursor<Role> cursor = getCollection().find().is("id", id);
+		if (cursor.hasNext()) {
+			Role role = cursor.next();
 			// Has no permissions, create ArrayList and add
 			if (role.permissions.equals(null)) {
 				role.permissions = new ArrayList<String>();
