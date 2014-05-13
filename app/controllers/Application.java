@@ -65,8 +65,16 @@ public class Application extends Controller {
 			return badRequest(views.html.roles.render(Role.all(), filledForm));
 		} else {
 			Role.addPermission(id, filledForm.field("permission").value());
-			// DEBUG
-			System.out.println(id + " | Permission: " + filledForm.field("permission"));
+			return redirect(routes.Application.roles());
+		}
+	}
+	
+	public static Result removePermission(String id) {
+		Form<Role> filledForm = roleForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.roles.render(Role.all(), filledForm));
+		} else {
+			Role.removePermission(id, filledForm.field("permission").value());
 			return redirect(routes.Application.roles());
 		}
 	}

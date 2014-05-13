@@ -11,9 +11,9 @@
       <li>
         <strong>Name:</strong> @role.name
 		<strong>Permissions:</strong> @role.permissions
-		@form(routes.Application.addPermission(role.id) ) {
+		@form(routes.Application.addPermission(role.id)) {
 			@inputText(roleForm("permission"))
-			<input type="submit" value="add">
+			<input type="submit" value="New permission">
 		}
 		@form(routes.Application.deleteRole(role.id)) {
 	 		<input type="submit" value="delete">
