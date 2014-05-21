@@ -6,6 +6,7 @@ import java.util.List;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
+import net.vz.mongodb.jackson.MongoCollection;
 import net.vz.mongodb.jackson.ObjectId;
 
 public class Role {
@@ -75,23 +76,25 @@ public class Role {
 		if (!role.equals(null)) {
 			System.out.println("*** id: " + id + " permission: " + permission
 					+ "***");
-			System.out.println("98074829743    " + role.id);
-			// Has no permissions, create ArrayList and add
-			if (role.permissions.size() != 0) {
+			// Has some
+			if (role.permissions.size() == 0) {
 				System.out.println("*** No permissions! ***");
 				role.permissions = new ArrayList<String>();
 				role.permissions.add(permission);
 				getCollection().save(role);
 			}
-			// Already has some permissions
+			// Has no permissions:
 			else {
+				System.out.println("*** Permissions: " + role.permissions.size() +  "***");
 				// Check that the permission is not listed yet
 				if (!role.permissions.contains(permission)) {
+					System.out.println("New role: " + permission);
 					role.permissions.add(permission);
-					getCollection().save(role);
-				}
+					getCollection().updateById(id, role);
+				} else
+					System.out.println("Already has the permission. Do not add!");
 			}
-		}
+		} else
 		System.out.println("*** Null role ***");
 	}
 

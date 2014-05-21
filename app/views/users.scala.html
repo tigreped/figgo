@@ -1,30 +1,47 @@
-@(users: List[User], userForm: Form[User])
+@(users: List[User], userForm: Form[User], user: User)
 
 @import helper._
 
 @main("Users") {
 
-  <h2>User list. [@users.size user(s)]</h2>
-
-  <ul>
-    @for(user <- users) {
-      <li>
-        <strong>Email:</strong> @user.email
-		<strong>Name:</strong> @user.name
-		<strong>Roles:</strong> @user.roles
-		@form(routes.Application.deleteUser(user.id)) {
-	 		<input type="submit" value="delete">
+	<header>
+		<a href="@routes.Application.index" id="logo"><span>Home</span></a> |
+		<a href="@routes.Application.users"><span>Users</span></a> |
+		<a href="@routes.Application.roles"><span>Roles</span></a> |
+		@if( user != null ) {
+			<a href="@routes.Application.logout()"> Logout (@user.name)</a> 
 		}
-      </li>
-    }
-  </ul>  
+	</header>
+	
+	<h2>User list [@users.size user(s)]</h2>
 
-  <h2> Add a new user: </h2>
+	<div class="container">
+		<div class="heading">
+	  		<div class="col">Email:</div>
+	  		<div class="col">Name:</div>
+	  		<div class="col">Roles:</div>
+	  		<div class="col">Delete:</div>
+		</div>
+		@for(user <- users) {
+			<div class="table-row">
+				<div class="col">@user.email</div>
+				<div class="col">@user.name</div>
+				<div class="col">@user.roles</div>
+				<div class="col">
+		  			@form(routes.Application.deleteUser(user.id)) {
+						<input type="submit" value="delete">
+					}
+				</div>
+			</div>	
+		}
+	</div>  
+
+	<h2> Add a new user: </h2>
   
-  @form(routes.Application.newUser()) {
-    @inputText(userForm("email"))
-    @inputText(userForm("name"))
-    @inputPassword(userForm("password"))
-    <input type="submit" value="create">
-  }
+ 	@form(routes.Application.newUser()) {
+		@inputText(userForm("email"))
+		@inputText(userForm("name"))
+		@inputPassword(userForm("password"))
+		<input type="submit" value="create">
+	}
 }
