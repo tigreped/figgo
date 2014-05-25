@@ -18,6 +18,7 @@ public class User {
 	public String name;
 	public ArrayList<String> roles;
 	public String password;
+	public double balance;
 
 	private static JacksonDBCollection<User, String> collection = Collections
 			.getUserCollection();
@@ -47,7 +48,7 @@ public class User {
 
 	public static User authenticate(String email, String password) {
 		User user = findByEmail(email);
-		if (user.email.equalsIgnoreCase(password)) {
+		if (user.password.equalsIgnoreCase(password)) {
 			return user;
 		}
 		return null;

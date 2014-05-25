@@ -21,6 +21,23 @@ body {
 	text-align: justify;
 }
 
+.loginbox {
+	position: absolute;
+	background-color: #CCFF49;
+	border: 1px thin;
+	border-radius: 10px;
+    padding: 5% 10%;
+    margin: 0% 20%;
+}
+
+positive {
+	color: green;
+}
+
+negative {
+	color: red;
+}
+
 h2 {
 	
 }

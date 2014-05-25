@@ -13,12 +13,20 @@
 		}
 	</header>
 	
+	<h2> Add a new user: </h2>
+  	@form(routes.Application.newUser()) {
+		@inputText(userForm("email"))
+		@inputText(userForm("name"))
+		@inputPassword(userForm("password"))
+		<input type="submit" value="create">
+	}
+	
 	<h2>User list [@users.size user(s)]</h2>
-
 	<div class="container">
 		<div class="heading">
 	  		<div class="col">Email:</div>
 	  		<div class="col">Name:</div>
+	  		<div class="col">Balance:</div>
 	  		<div class="col">Roles:</div>
 	  		<div class="col">Delete:</div>
 		</div>
@@ -26,6 +34,17 @@
 			<div class="table-row">
 				<div class="col">@user.email</div>
 				<div class="col">@user.name</div>
+				<div class="col">
+					@if(user.balance > 0) {
+					  	<positive>$@user.balance</positive>
+					}  
+					@if(user.balance < 0) {
+					  	<negative>$@user.balance</negative>
+					} 
+					@if(user.balance == 0){
+						$@user.balance
+					}
+				</div>
 				<div class="col">@user.roles</div>
 				<div class="col">
 		  			@form(routes.Application.deleteUser(user.id)) {
@@ -34,14 +53,5 @@
 				</div>
 			</div>	
 		}
-	</div>  
-
-	<h2> Add a new user: </h2>
-  
- 	@form(routes.Application.newUser()) {
-		@inputText(userForm("email"))
-		@inputText(userForm("name"))
-		@inputPassword(userForm("password"))
-		<input type="submit" value="create">
-	}
+	</div>
 }

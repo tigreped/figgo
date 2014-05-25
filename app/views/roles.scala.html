@@ -15,11 +15,17 @@
   
 	<h2>Role list [@roles.size role(s)]:</h2>
 
+	<h2> Add a new role: </h2>
+	@form(routes.Application.newRole()) {
+	    @inputText(roleForm("name"))
+	    <input type="submit" value="create">
+	}
+		
 	<div class="container">
 		<div class="heading">
 			<div class="col">Name:</div>
 		  	<div class="col">Permissions:</div>
-		  	<div class="col">Delete:</div>
+		  	<div class="col">Delete role:</div>
 		  	<div class="col">Add permission:</div>
 		  	<div class="col">Remove permission:</div>
 		</div>
@@ -47,11 +53,4 @@
 			</div>
 		}	  
 	</div>
-
-	<h2> Add a new role: </h2>
-  
-	@form(routes.Application.newRole()) {
-	    @inputText(roleForm("name"))
-	    <input type="submit" value="create">
-	}
 }

@@ -15,25 +15,27 @@
 				<a href="@routes.Application.logout()"> Logout (@user.name)</a> 
 			}
 		</header>
+		<div class="loginbox">
 		@helper.form(routes.Application.authenticate) {
-			</br>
-			<h1>Sign in</h1>
-			@if(form.hasGlobalErrors) {
-				<p class="error">@form.globalError.message</p>
-			} 
-			@if(flash.contains("success")) {
-				<p class="success">@flash.get("success")</p>
-			}
-			<p>
-				<input type="email" name="email" placeholder="Email" value="@form("email").value">
-			</p>
-			<p>
-				<input type="password" name="password" placeholder="Password">
-			</p>
-			<p>
-				<button type="submit">Login</button>
-			</p>
+				</br>
+				<h1>Sign in</h1>
+				@if(form.hasGlobalErrors) {
+					<p class="error">@form.globalError.message</p>
+				} 
+				@if(flash.contains("success")) {
+					<p class="success">@flash.get("success")</p>
+				}
+				<p>
+					<input type="email" name="email" placeholder="Email" value="@form("email").value">
+				</p>
+				<p>
+					<input type="password" name="password" placeholder="Password">
+				</p>
+				<p>
+					<button type="submit">Login</button>
+				</p>
 		}
+		</div>
 	</body>
 }
 
