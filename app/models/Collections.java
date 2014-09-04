@@ -11,11 +11,18 @@ public class Collections {
 	private static JacksonDBCollection<Role, String> roleCollection = MongoDB
 			.getCollection("roles", Role.class, String.class);
 	
+	private static JacksonDBCollection<CardTransaction, String> cardTransactionCollection = MongoDB
+			.getCollection("cardTransactions", CardTransaction.class, String.class);
+	
 	public static JacksonDBCollection<User, String> getUserCollection() {
 		return userCollection;
 	}
 	
 	public static JacksonDBCollection<Role, String> getRoleCollection() {
 		return roleCollection;
+	}
+	
+	public static JacksonDBCollection<CardTransaction, String> getCardTransactionCollection() {
+		return cardTransactionCollection;
 	}
 }

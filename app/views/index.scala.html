@@ -1,7 +1,37 @@
-@(message: String)
+@(user: User, cardTransactionForm: Form[CardTransaction])
 
-@main("Welcome to Play") {
+@import helper._
 
-    @play20.welcome(message, style = "Java")
+@main("Index") {
+	<header>
+		<a href="@routes.Application.index" id="logo"><span>Home</span></a> |
+		<a href="@routes.Application.users"><span>Users</span></a> |
+		<a href="@routes.Application.roles"><span>Roles</span></a> |
+		@if( user != null ) {
+			<a href="@routes.Application.logout()"> Logout (@user.name)</a> 
+		} 
+	</header>
+	<br/>
+	<h2>
+		Saldo atual: 
+		@if(user.cardBalance > 0) {
+			<positive>@user.cardBalance</positive>
+		}  
+		@if(user.cardBalance < 0) {
+		  	<negative>@user.cardBalance</negative>
+		} 
+		@if(user.cardBalance == 0) {
+			@user.cardBalance
+		}
+	</h2>
 
-}
+	@if(user.cardBalance > 0) {
+		<h2>Realizar transferência:</h2>
+		@form(routes.Application.newCardTransaction()) {
+			@inputText(cardTransactionForm("amount"))
+			@inputText(cardTransactionForm("to"))
+			<input type="submit" value="transfer">
+		}
+
+	}
+}	

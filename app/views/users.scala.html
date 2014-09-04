@@ -27,6 +27,7 @@
 	  		<div class="col">Email:</div>
 	  		<div class="col">Name:</div>
 	  		<div class="col">Balance:</div>
+	  		<div class="col">Timestamp:</div>
 	  		<div class="col">Roles:</div>
 	  		<div class="col">Delete:</div>
 		</div>
@@ -35,16 +36,17 @@
 				<div class="col">@user.email</div>
 				<div class="col">@user.name</div>
 				<div class="col">
-					@if(user.balance > 0) {
-					  	<positive>$@user.balance</positive>
-					}  
-					@if(user.balance < 0) {
-					  	<negative>$@user.balance</negative>
-					} 
-					@if(user.balance == 0){
-						$@user.balance
-					}
+					@if(user.cardBalance > 0) {
+						  	<positive>@user.cardBalance</positive>
+						}  
+					@if(user.cardBalance < 0) {
+						  	<negative>@user.cardBalance</negative>
+						} 
+					@if(user.cardBalance == 0){
+							@user.cardBalance
+						}
 				</div>
+				<div class="col">@user.cardBalanceTimestamp</div>
 				<div class="col">@user.roles</div>
 				<div class="col">
 		  			@form(routes.Application.deleteUser(user.id)) {

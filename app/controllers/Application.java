@@ -1,22 +1,25 @@
 package controllers;
 
+import models.CardTransaction;
 import models.Role;
 import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.index;
 import views.html.login;
 
 public class Application extends Controller {
 
 	private static Form<User> userForm = Form.form(User.class);
 	private static Form<Role> roleForm = Form.form(Role.class);
+	private static Form<CardTransaction> cardTransactionForm = Form
+			.form(CardTransaction.class);
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
-		return ok(index.render("Your new application is ready."));
+		//Form<CardTransaction> filledForm = cardTransactionForm.bindFromRequest();
+		return ok(views.html.index.render(User.findByEmail(session().get("email")), cardTransactionForm));
 	}
 
 	@Security.Authenticated(Secured.class)
@@ -91,6 +94,32 @@ public class Application extends Controller {
 		}
 	}
 
+	@Security.Authenticated(Secured.class)
+	public static Result newCardTransaction() {
+		Form<CardTransaction> filledForm = cardTransactionForm
+				.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.index.render(
+					User.findByEmail(session().get("email")), filledForm));
+		} else {
+			// 1) Check if balance is enough:
+			CardTransaction.create(filledForm.get());
+			User from = User.findByEmail(session().get("email"));
+			double balance = User.getCardBalance(from); 
+			double amount = new Double(filledForm.field("amount").value());
+			if (balance >= amount) {
+				// 2) Check destiny validity:
+				User to = User.findByEmail(filledForm.field("to").value());
+				if (to != null) {
+					// 3) Create operation:
+					from.cardBalance += from.cardBalance - amount;
+					to.cardBalance += to.cardBalance + amount;
+				}
+			}
+			return redirect(routes.Application.users());
+		}
+	}
+
 	public static Result login() {
 		return ok(login.render(Form.form(Login.class),
 				User.findByEmail(session().get("email"))));
@@ -99,7 +128,7 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
 	public static Result logout() {
 		session().clear();
-		flash("success", "You've been logged out");
+		flash("success", "You've been logged out!");
 		return redirect(routes.Application.login());
 	}
 
@@ -121,7 +150,7 @@ public class Application extends Controller {
 
 		public String validate() {
 			if (User.authenticate(email, password) == null) {
-				return "Invalid user or password";
+				return "Invalid user or password!\nPlease check your information and try again!";
 			}
 			return null;
 		}

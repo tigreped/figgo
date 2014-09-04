@@ -23,11 +23,12 @@ body {
 
 .loginbox {
 	position: absolute;
-	background-color: #CCFF49;
+	background-color: #9D97B6;
 	border: 1px thin;
+	float: center;
 	border-radius: 10px;
     padding: 5% 10%;
-    margin: 0% 20%;
+    margin: 5% 28%;
 }
 
 positive {

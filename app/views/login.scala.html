@@ -20,10 +20,10 @@
 				</br>
 				<h1>Sign in</h1>
 				@if(form.hasGlobalErrors) {
-					<p class="error">@form.globalError.message</p>
+					<p class="error"><b>@form.globalError.message</b></p>
 				} 
 				@if(flash.contains("success")) {
-					<p class="success">@flash.get("success")</p>
+					<p class="success"><b>@flash.get("success")</b></p>
 				}
 				<p>
 					<input type="email" name="email" placeholder="Email" value="@form("email").value">
@@ -32,7 +32,7 @@
 					<input type="password" name="password" placeholder="Password">
 				</p>
 				<p>
-					<button type="submit">Login</button>
+					<button type="submit" style="float: right;">Login</button>
 				</p>
 		}
 		</div>

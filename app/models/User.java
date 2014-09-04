@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.vz.mongodb.jackson.DBCursor;
@@ -18,9 +19,10 @@ public class User {
 	public String name;
 	public ArrayList<String> roles;
 	public String password;
-	public double balance;
+	public double cardBalance;
+	public Date cardBalanceTimestamp;
 
-	private static JacksonDBCollection<User, String> collection = Collections
+	private static final JacksonDBCollection<User, String> collection = Collections
 			.getUserCollection();
 
 	public static List<User> all() {
@@ -28,6 +30,7 @@ public class User {
 	}
 
 	public static void create(User user) {
+		user.cardBalanceTimestamp = new Date();
 		getCollection().save(user);
 	}
 
@@ -48,9 +51,11 @@ public class User {
 
 	public static User authenticate(String email, String password) {
 		User user = findByEmail(email);
-		if (user.password.equalsIgnoreCase(password)) {
-			return user;
-		}
+		if (user != null ) {
+			if (user.password.equalsIgnoreCase(password)) {
+				return user;
+			}
+		}	
 		return null;
 	}
 
@@ -59,7 +64,7 @@ public class User {
 	}
 
 	public ArrayList<String> getRoles() {
-		return this.roles;
+		return roles;
 	}
 
 	/**
@@ -119,4 +124,47 @@ public class User {
 			}
 		}
 	}
+
+	/**
+	 * Retrieves user's balance from database, checks for more recent transactions
+	 * and updates the balance if not updated (i.e., if there are card
+	 * transactions with a timestamp more recent than the current balance timestemp)
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public static double getCardBalance(User user) {
+		// Check if the user is not null
+		if (!user.equals(null)) {
+			// Check if balanceTimestamp is greater or equal to the timestamp of
+			// the user's last cardTransaction
+			ArrayList<CardTransaction> transactions = CardTransaction.getTransactionsPerUserFromDate(user.id,
+					user.cardBalanceTimestamp);
+			// Sum the amount of all recent transactions: 
+			double sum = 0;
+			if (transactions.size() > 0) {
+				CardTransaction transaction = null;
+				for (CardTransaction ct: transactions) {
+					transaction = ct;
+					sum += ct.amount;
+				}	
+				// Add the value to current balance
+				updateCardBalance(user, sum);
+				// Update balance timestamp according to last transaction:
+				user.cardBalanceTimestamp = transaction.timestamp;
+			}
+
+			// Returns updated balance:
+			return user.cardBalance;
+		}
+		return 0;
+	}
+
+	/**
+	 * Updates the user balance retrieving current balance and adding new sum
+	 * @param sum
+	 */
+	private static void updateCardBalance(User user, double sum) {
+		user.cardBalance += sum ;		
+	}	
 }

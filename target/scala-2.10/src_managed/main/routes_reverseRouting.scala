@@ -1,6 +1,6 @@
 // @SOURCE:/home/pedro/workspace/playtestdrive/conf/routes
-// @HASH:5c896d7fe1589ea3574f54d0e9146cdd01e01659
-// @DATE:Fri Mar 07 13:16:09 BRT 2014
+// @HASH:e8bf081205dcfe53c62f487f1689f430d49b0503
+// @DATE:Sun Jun 08 22:07:09 BRT 2014
 
 import Routes.{prefix => _prefix, defaultPrefix => _defaultPrefix}
 import play.core._
@@ -13,6 +13,12 @@ import play.libs.F
 import Router.queryString
 
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -36,6 +42,12 @@ def at(file:String): Call = {
 }
                           
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -45,6 +57,42 @@ def at(file:String): Call = {
 // @LINE:6
 class ReverseApplication {
     
+
+// @LINE:26
+def deleteRole(id:String): Call = {
+   Call("POST", _prefix + { _defaultPrefix } + "roles/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)) + "/delete")
+}
+                                                
+
+// @LINE:25
+def newRole(): Call = {
+   Call("POST", _prefix + { _defaultPrefix } + "roles")
+}
+                                                
+
+// @LINE:24
+def roles(): Call = {
+   Call("GET", _prefix + { _defaultPrefix } + "roles")
+}
+                                                
+
+// @LINE:28
+def removePermission(id:String): Call = {
+   Call("POST", _prefix + { _defaultPrefix } + "roles/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)) + "/removePermission")
+}
+                                                
+
+// @LINE:31
+def newCardTransaction(): Call = {
+   Call("POST", _prefix + { _defaultPrefix } + "cardTransactions")
+}
+                                                
+
+// @LINE:27
+def addPermission(id:String): Call = {
+   Call("POST", _prefix + { _defaultPrefix } + "roles/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)) + "/addPermission")
+}
+                                                
 
 // @LINE:19
 def users(): Call = {
@@ -94,6 +142,12 @@ def login(): Call = {
                   
 
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -122,6 +176,12 @@ def at : JavascriptReverseRoute = JavascriptReverseRoute(
 }
               
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -131,6 +191,72 @@ def at : JavascriptReverseRoute = JavascriptReverseRoute(
 // @LINE:6
 class ReverseApplication {
     
+
+// @LINE:26
+def deleteRole : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.deleteRole",
+   """
+      function(id) {
+      return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "roles/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id)) + "/delete"})
+      }
+   """
+)
+                        
+
+// @LINE:25
+def newRole : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.newRole",
+   """
+      function() {
+      return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "roles"})
+      }
+   """
+)
+                        
+
+// @LINE:24
+def roles : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.roles",
+   """
+      function() {
+      return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "roles"})
+      }
+   """
+)
+                        
+
+// @LINE:28
+def removePermission : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.removePermission",
+   """
+      function(id) {
+      return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "roles/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id)) + "/removePermission"})
+      }
+   """
+)
+                        
+
+// @LINE:31
+def newCardTransaction : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.newCardTransaction",
+   """
+      function() {
+      return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "cardTransactions"})
+      }
+   """
+)
+                        
+
+// @LINE:27
+def addPermission : JavascriptReverseRoute = JavascriptReverseRoute(
+   "controllers.Application.addPermission",
+   """
+      function(id) {
+      return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "roles/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id)) + "/addPermission"})
+      }
+   """
+)
+                        
 
 // @LINE:19
 def users : JavascriptReverseRoute = JavascriptReverseRoute(
@@ -215,6 +341,12 @@ def login : JavascriptReverseRoute = JavascriptReverseRoute(
         
 
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -239,6 +371,12 @@ def at(path:String, file:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.
 }
                           
 
+// @LINE:31
+// @LINE:28
+// @LINE:27
+// @LINE:26
+// @LINE:25
+// @LINE:24
 // @LINE:21
 // @LINE:20
 // @LINE:19
@@ -248,6 +386,42 @@ def at(path:String, file:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.
 // @LINE:6
 class ReverseApplication {
     
+
+// @LINE:26
+def deleteRole(id:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.deleteRole(id), HandlerDef(this, "controllers.Application", "deleteRole", Seq(classOf[String]), "POST", """""", _prefix + """roles/$id<[^/]+>/delete""")
+)
+                      
+
+// @LINE:25
+def newRole(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.newRole(), HandlerDef(this, "controllers.Application", "newRole", Seq(), "POST", """""", _prefix + """roles""")
+)
+                      
+
+// @LINE:24
+def roles(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.roles(), HandlerDef(this, "controllers.Application", "roles", Seq(), "GET", """Roles""", _prefix + """roles""")
+)
+                      
+
+// @LINE:28
+def removePermission(id:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.removePermission(id), HandlerDef(this, "controllers.Application", "removePermission", Seq(classOf[String]), "POST", """""", _prefix + """roles/$id<[^/]+>/removePermission""")
+)
+                      
+
+// @LINE:31
+def newCardTransaction(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.newCardTransaction(), HandlerDef(this, "controllers.Application", "newCardTransaction", Seq(), "POST", """Card Transactions""", _prefix + """cardTransactions""")
+)
+                      
+
+// @LINE:27
+def addPermission(id:String): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
+   controllers.Application.addPermission(id), HandlerDef(this, "controllers.Application", "addPermission", Seq(classOf[String]), "POST", """""", _prefix + """roles/$id<[^/]+>/addPermission""")
+)
+                      
 
 // @LINE:19
 def users(): play.api.mvc.HandlerRef[_] = new play.api.mvc.HandlerRef(
