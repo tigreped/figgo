@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Date;
+
 import models.CardTransaction;
 import models.Role;
 import models.User;
@@ -103,7 +105,6 @@ public class Application extends Controller {
 					User.findByEmail(session().get("email")), filledForm));
 		} else {
 			// 1) Check if balance is enough:
-			CardTransaction.create(filledForm.get());
 			User from = User.findByEmail(session().get("email"));
 			double balance = User.getCardBalance(from); 
 			double amount = new Double(filledForm.field("amount").value());
@@ -112,8 +113,10 @@ public class Application extends Controller {
 				User to = User.findByEmail(filledForm.field("to").value());
 				if (to != null) {
 					// 3) Create operation:
-					from.cardBalance += from.cardBalance - amount;
-					to.cardBalance += to.cardBalance + amount;
+					new CardTransaction(from.id, to.id, new Date(), amount);
+					// Update balances:
+					User.updateCardBalance(from);
+					User.updateCardBalance(to);
 				}
 			}
 			return redirect(routes.Application.users());

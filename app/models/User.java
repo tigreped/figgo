@@ -136,27 +136,10 @@ public class User {
 	public static double getCardBalance(User user) {
 		// Check if the user is not null
 		if (!user.equals(null)) {
-			// Check if balanceTimestamp is greater or equal to the timestamp of
-			// the user's last cardTransaction
-			ArrayList<CardTransaction> transactions = CardTransaction.getTransactionsPerUserFromDate(user.id,
-					user.cardBalanceTimestamp);
-			// Sum the amount of all recent transactions: 
-			double sum = 0;
-			if (transactions.size() > 0) {
-				CardTransaction transaction = null;
-				for (CardTransaction ct: transactions) {
-					transaction = ct;
-					sum += ct.amount;
-				}	
-				// Add the value to current balance
-				updateCardBalance(user, sum);
-				// Update balance timestamp according to last transaction:
-				user.cardBalanceTimestamp = transaction.timestamp;
-			}
-
-			// Returns updated balance:
+			// Update balance:
+			updateCardBalance(user);
 			return user.cardBalance;
-		}
+		} // End null user condition
 		return 0;
 	}
 
@@ -164,7 +147,40 @@ public class User {
 	 * Updates the user balance retrieving current balance and adding new sum
 	 * @param sum
 	 */
-	private static void updateCardBalance(User user, double sum) {
-		user.cardBalance += sum ;		
-	}	
+	public static void updateCardBalance(User user, double sum) {
+		user.cardBalance += sum ;
+	}
+	
+	public static void updateCardBalance(User user) {
+		// Check if balanceTimestamp is greater or equal to the timestamp of
+		// the user's last cardTransaction
+		ArrayList<CardTransaction> transactionsTo = CardTransaction.getTransactionsToUserFromDate(user.id,
+				user.cardBalanceTimestamp);
+		ArrayList<CardTransaction> transactionsFrom = CardTransaction.getTransactionsFromUserFromDate(user.id,
+				user.cardBalanceTimestamp);
+		// Sum the amount of all recent transactions: 
+		double sum = 0;
+		if (transactionsTo.size() > 0) {
+			// Cards received:
+			for (CardTransaction ct: transactionsTo) {
+				if(user.cardBalanceTimestamp.before(ct.getTimestamp())) 
+					user.cardBalanceTimestamp = ct.getTimestamp();
+				sum += ct.amount;
+			}
+		}
+		if (transactionsFrom.size() > 0) {
+			// Cards given:
+			for (CardTransaction ct: transactionsFrom) {
+				if(user.cardBalanceTimestamp.before(ct.getTimestamp())) 
+					user.cardBalanceTimestamp = ct.getTimestamp();
+				sum -= ct.amount;
+			}
+		}	
+		
+		// Add the value to current balance
+		updateCardBalance(user, sum);
+		
+		// Update balance:
+		User.create(user);
+	}
 }
