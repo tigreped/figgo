@@ -1,6 +1,6 @@
-// @SOURCE:/home/pedro/workspace/playtestdrive/conf/routes
-// @HASH:e8bf081205dcfe53c62f487f1689f430d49b0503
-// @DATE:Sun Jun 08 22:07:09 BRT 2014
+// @SOURCE:/home/pedro/workspace/figgo_bkp/conf/routes
+// @HASH:4ec77c3519179fd5d787e5c2cbbb749536a01344
+// @DATE:Mon Sep 15 09:53:05 BRT 2014
 
 
 import play.core._
@@ -60,30 +60,38 @@ private[this] lazy val controllers_Application_newUser6 = Route("POST", PathPatt
 private[this] lazy val controllers_Application_deleteUser7 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users/"),DynamicPart("id", """[^/]+""",true),StaticPart("/delete"))))
         
 
-// @LINE:24
-private[this] lazy val controllers_Application_roles8 = Route("GET", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles"))))
+// @LINE:22
+private[this] lazy val controllers_Application_addRole8 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users/"),DynamicPart("userId", """[^/]+""",true),StaticPart("/addRole"))))
         
 
-// @LINE:25
-private[this] lazy val controllers_Application_newRole9 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles"))))
+// @LINE:23
+private[this] lazy val controllers_Application_removeRole9 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("users/"),DynamicPart("userId", """[^/]+""",true),StaticPart("/removeRole"))))
         
 
 // @LINE:26
-private[this] lazy val controllers_Application_deleteRole10 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/delete"))))
+private[this] lazy val controllers_Application_roles10 = Route("GET", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles"))))
         
 
 // @LINE:27
-private[this] lazy val controllers_Application_addPermission11 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/addPermission"))))
+private[this] lazy val controllers_Application_newRole11 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles"))))
         
 
 // @LINE:28
-private[this] lazy val controllers_Application_removePermission12 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/removePermission"))))
+private[this] lazy val controllers_Application_deleteRole12 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/delete"))))
         
 
-// @LINE:31
-private[this] lazy val controllers_Application_newCardTransaction13 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("cardTransactions"))))
+// @LINE:29
+private[this] lazy val controllers_Application_addPermission13 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/addPermission"))))
         
-def documentation = List(("""GET""", prefix,"""controllers.Application.index()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.login()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.authenticate()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """logout""","""controllers.Application.logout()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.users()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.newUser()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users/$id<[^/]+>/delete""","""controllers.Application.deleteUser(id:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles""","""controllers.Application.roles()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles""","""controllers.Application.newRole()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/delete""","""controllers.Application.deleteRole(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/addPermission""","""controllers.Application.addPermission(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/removePermission""","""controllers.Application.removePermission(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """cardTransactions""","""controllers.Application.newCardTransaction()""")).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
+
+// @LINE:30
+private[this] lazy val controllers_Application_removePermission14 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("roles/"),DynamicPart("id", """[^/]+""",true),StaticPart("/removePermission"))))
+        
+
+// @LINE:33
+private[this] lazy val controllers_Application_newCardTransaction15 = Route("POST", PathPattern(List(StaticPart(Routes.prefix),StaticPart(Routes.defaultPrefix),StaticPart("cardTransactions"))))
+        
+def documentation = List(("""GET""", prefix,"""controllers.Application.index()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """assets/$file<.+>""","""controllers.Assets.at(path:String = "/public", file:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.login()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """login""","""controllers.Application.authenticate()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """logout""","""controllers.Application.logout()"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.users()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users""","""controllers.Application.newUser()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users/$id<[^/]+>/delete""","""controllers.Application.deleteUser(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users/$userId<[^/]+>/addRole""","""controllers.Application.addRole(userId:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """users/$userId<[^/]+>/removeRole""","""controllers.Application.removeRole(userId:String)"""),("""GET""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles""","""controllers.Application.roles()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles""","""controllers.Application.newRole()"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/delete""","""controllers.Application.deleteRole(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/addPermission""","""controllers.Application.addPermission(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """roles/$id<[^/]+>/removePermission""","""controllers.Application.removePermission(id:String)"""),("""POST""", prefix + (if(prefix.endsWith("/")) "" else "/") + """cardTransactions""","""controllers.Application.newCardTransaction()""")).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
   case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
   case l => s ++ l.asInstanceOf[List[(String,String,String)]] 
 }}
@@ -155,48 +163,64 @@ case controllers_Application_deleteUser7(params) => {
 }
         
 
-// @LINE:24
-case controllers_Application_roles8(params) => {
+// @LINE:22
+case controllers_Application_addRole8(params) => {
+   call(params.fromPath[String]("userId", None)) { (userId) =>
+        invokeHandler(controllers.Application.addRole(userId), HandlerDef(this, "controllers.Application", "addRole", Seq(classOf[String]),"POST", """""", Routes.prefix + """users/$userId<[^/]+>/addRole"""))
+   }
+}
+        
+
+// @LINE:23
+case controllers_Application_removeRole9(params) => {
+   call(params.fromPath[String]("userId", None)) { (userId) =>
+        invokeHandler(controllers.Application.removeRole(userId), HandlerDef(this, "controllers.Application", "removeRole", Seq(classOf[String]),"POST", """""", Routes.prefix + """users/$userId<[^/]+>/removeRole"""))
+   }
+}
+        
+
+// @LINE:26
+case controllers_Application_roles10(params) => {
    call { 
         invokeHandler(controllers.Application.roles(), HandlerDef(this, "controllers.Application", "roles", Nil,"GET", """Roles""", Routes.prefix + """roles"""))
    }
 }
         
 
-// @LINE:25
-case controllers_Application_newRole9(params) => {
+// @LINE:27
+case controllers_Application_newRole11(params) => {
    call { 
         invokeHandler(controllers.Application.newRole(), HandlerDef(this, "controllers.Application", "newRole", Nil,"POST", """""", Routes.prefix + """roles"""))
    }
 }
         
 
-// @LINE:26
-case controllers_Application_deleteRole10(params) => {
+// @LINE:28
+case controllers_Application_deleteRole12(params) => {
    call(params.fromPath[String]("id", None)) { (id) =>
         invokeHandler(controllers.Application.deleteRole(id), HandlerDef(this, "controllers.Application", "deleteRole", Seq(classOf[String]),"POST", """""", Routes.prefix + """roles/$id<[^/]+>/delete"""))
    }
 }
         
 
-// @LINE:27
-case controllers_Application_addPermission11(params) => {
+// @LINE:29
+case controllers_Application_addPermission13(params) => {
    call(params.fromPath[String]("id", None)) { (id) =>
         invokeHandler(controllers.Application.addPermission(id), HandlerDef(this, "controllers.Application", "addPermission", Seq(classOf[String]),"POST", """""", Routes.prefix + """roles/$id<[^/]+>/addPermission"""))
    }
 }
         
 
-// @LINE:28
-case controllers_Application_removePermission12(params) => {
+// @LINE:30
+case controllers_Application_removePermission14(params) => {
    call(params.fromPath[String]("id", None)) { (id) =>
         invokeHandler(controllers.Application.removePermission(id), HandlerDef(this, "controllers.Application", "removePermission", Seq(classOf[String]),"POST", """""", Routes.prefix + """roles/$id<[^/]+>/removePermission"""))
    }
 }
         
 
-// @LINE:31
-case controllers_Application_newCardTransaction13(params) => {
+// @LINE:33
+case controllers_Application_newCardTransaction15(params) => {
    call { 
         invokeHandler(controllers.Application.newCardTransaction(), HandlerDef(this, "controllers.Application", "newCardTransaction", Nil,"POST", """Card Transactions""", Routes.prefix + """cardTransactions"""))
    }

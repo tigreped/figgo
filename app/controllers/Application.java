@@ -9,7 +9,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.login;
+import controllers.Application.Login;
 
 public class Application extends Controller {
 
@@ -97,7 +97,10 @@ public class Application extends Controller {
 			return badRequest(views.html.roles.render(Role.all(), filledForm, userForm, User.all(),
 					User.findByEmail(session().get("email"))));
 		} else {
-			Role.create(filledForm.get());
+			Role role = filledForm.get();
+			// Check if the role already exists:
+			if (!Role.exists(role))
+				Role.create(filledForm.get());
 			return redirect(routes.Application.roles());
 		}
 	}
