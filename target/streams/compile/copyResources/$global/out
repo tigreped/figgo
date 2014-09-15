@@ -1,6 +1,6 @@
 [0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/playtestdrive/conf/application.conf,/home/pedro/workspace/playtestdrive/target/scala-2.10/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/playtestdrive/conf/routes,/home/pedro/workspace/playtestdrive/target/scala-2.10/classes/routes)[0m
-[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/playtestdrive/conf/evolutions,/home/pedro/workspace/playtestdrive/target/scala-2.10/classes/evolutions)[0m
-[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/playtestdrive/conf/evolutions/default,/home/pedro/workspace/playtestdrive/target/scala-2.10/classes/evolutions/default)[0m
-[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/playtestdrive/conf/evolutions/default/1.sql,/home/pedro/workspace/playtestdrive/target/scala-2.10/classes/evolutions/default/1.sql)[0m
+[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/figgo_bkp/conf/routes,/home/pedro/workspace/figgo_bkp/target/scala-2.10/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/figgo_bkp/conf/application.conf,/home/pedro/workspace/figgo_bkp/target/scala-2.10/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/figgo_bkp/conf/evolutions,/home/pedro/workspace/figgo_bkp/target/scala-2.10/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/figgo_bkp/conf/evolutions/default,/home/pedro/workspace/figgo_bkp/target/scala-2.10/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/home/pedro/workspace/figgo_bkp/conf/evolutions/default/1.sql,/home/pedro/workspace/figgo_bkp/target/scala-2.10/classes/evolutions/default/1.sql)[0m

@@ -17,11 +17,11 @@ public class User {
 
 	public String email;
 	public String name;
-	public ArrayList<String> roles;
+	public ArrayList<String> roles = new ArrayList<String>();
 	public String password;
 	public double cardBalance;
 	public Date cardBalanceTimestamp;
-
+	
 	private static final JacksonDBCollection<User, String> collection = Collections
 			.getUserCollection();
 
@@ -88,7 +88,7 @@ public class User {
 	 * @param user
 	 * @param role
 	 */
-	public static void removeUserRole(User user, String role) {
+	public static void removeRole(User user, String role) {
 		if (!user.equals(null)) {
 			// If it finds such a role in the user roles
 			if (user.roles.indexOf(role) != -1) {
@@ -106,7 +106,8 @@ public class User {
 	 * @param user
 	 * @param role
 	 */
-	public static void addUserRole(User user, String role) {
+	public static void addRole(String userId, String role) {
+		User user = getCollection().findOneById(userId);
 		// Check if the user is not null
 		if (!user.equals(null)) {
 			// Check for empty roles list
@@ -125,6 +126,26 @@ public class User {
 		}
 	}
 
+	/**
+	 * Remove role from user role list, if there is such a user and role
+	 * 
+	 * @param user
+	 * @param role
+	 */
+	public static void removeRole(String userId, String role) {
+		User user = getCollection().findOneById(userId);
+		// Check if the user is not null
+		if (!user.equals(null)) {
+			// Check for empty roles list
+			if (!user.roles.equals(null)) {
+				if (user.roles.contains(role)) {
+					user.roles.remove(role);
+					getCollection().save(user);
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Retrieves user's balance from database, checks for more recent transactions
 	 * and updates the balance if not updated (i.e., if there are card

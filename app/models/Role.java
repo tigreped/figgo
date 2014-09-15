@@ -73,28 +73,21 @@ public class Role {
 	public static void addPermission(String id, String permission) {
 		Role role = getCollection().findOneById(id);
 		if (!role.equals(null)) {
-			System.out.println("*** id: " + id + " permission: " + permission
-					+ "***");
 			// Has some
 			if (role.permissions.size() == 0) {
-				System.out.println("*** No permissions! ***");
 				role.permissions = new ArrayList<String>();
 				role.permissions.add(permission);
 				getCollection().save(role);
 			}
 			// Has no permissions:
 			else {
-				System.out.println("*** Permissions: " + role.permissions.size() +  "***");
 				// Check that the permission is not listed yet
 				if (!role.permissions.contains(permission)) {
-					System.out.println("New role: " + permission);
 					role.permissions.add(permission);
 					getCollection().updateById(id, role);
-				} else
-					System.out.println("Already has the permission. Do not add!");
+				}
 			}
-		} else
-		System.out.println("*** Null role ***");
+		}
 	}
 
 	public static void removePermission(String id, String permission) {
@@ -112,5 +105,27 @@ public class Role {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Return a list with all available roles
+	 * @return
+	 */
+	public static ArrayList<String> getAllRoles() {
+		List<Role> allRoles = getCollection().find().toArray();
+		ArrayList<String> roles = new ArrayList<String>();
+		for (Role r: allRoles) {
+			roles.add(r.name);			
+		}
+		return roles;
+	}
+	
+	public static boolean exists(Role role) {
+		Role exists = Role.findByName(role.name);
+		// Does not exist, return false:
+		if (exists.equals(null))
+			return false;
+		// Already exists, return true:
+		return true;
 	}
 }
