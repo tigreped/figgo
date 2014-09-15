@@ -47,10 +47,46 @@ public class Application extends Controller {
 		User.delete(id);
 		return redirect(routes.Application.users());
 	}
+	
+	/**
+	 * Add a role to a given user
+	 * @param userId
+	 * @return
+	 */
+	@Security.Authenticated(Secured.class)
+	public static Result addRole(String userId) {
+		Form<User> filledForm = userForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.roles.render(Role.all(), roleForm, filledForm, User.all(),
+					User.findByEmail(session().get("email"))));
+		} else {
+			String roleName = filledForm.field("availableRoles").value();
+			User.addRole(userId, roleName);
+			return redirect(routes.Application.roles());
+		}
+	}
+	
+	/**
+	 * Remove a role to a given user
+	 * @param userId
+	 * @return
+	 */
+	@Security.Authenticated(Secured.class)
+	public static Result removeRole(String userId) {
+		Form<User> filledForm = userForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.roles.render(Role.all(), roleForm, filledForm, User.all(),
+					User.findByEmail(session().get("email"))));
+		} else {
+			String roleName = filledForm.field("currentRoles").value();
+			User.removeRole(userId, roleName);
+			return redirect(routes.Application.roles());
+		}
+	}
 
 	@Security.Authenticated(Secured.class)
 	public static Result roles() {
-		return ok(views.html.roles.render(Role.all(), roleForm,
+		return ok(views.html.roles.render(Role.all(), roleForm, userForm, User.all(),
 				User.findByEmail(session().get("email"))));
 	}
 
@@ -58,7 +94,7 @@ public class Application extends Controller {
 	public static Result newRole() {
 		Form<Role> filledForm = roleForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.roles.render(Role.all(), filledForm,
+			return badRequest(views.html.roles.render(Role.all(), filledForm, userForm, User.all(),
 					User.findByEmail(session().get("email"))));
 		} else {
 			Role.create(filledForm.get());
@@ -76,7 +112,7 @@ public class Application extends Controller {
 	public static Result addPermission(String id) {
 		Form<Role> filledForm = roleForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.roles.render(Role.all(), filledForm,
+			return badRequest(views.html.roles.render(Role.all(), filledForm, userForm, User.all(),
 					User.findByEmail(session().get("email"))));
 		} else {
 			Role.addPermission(id, filledForm.field("permission").value());
@@ -88,7 +124,7 @@ public class Application extends Controller {
 	public static Result removePermission(String id) {
 		Form<Role> filledForm = roleForm.bindFromRequest();
 		if (filledForm.hasErrors()) {
-			return badRequest(views.html.roles.render(Role.all(), filledForm,
+			return badRequest(views.html.roles.render(Role.all(), filledForm, userForm, User.all(),
 					User.findByEmail(session().get("email"))));
 		} else {
 			Role.removePermission(id, filledForm.field("permission").value());

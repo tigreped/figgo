@@ -1,56 +1,147 @@
-@(roles: List[Role], roleForm: Form[Role], user: User)
+@(roles: List[Role], roleForm: Form[Role], userForm: Form[User], users: List[User], user:User) 
 
 @import helper._
-
+ 
 @main("Roles") {
 
-	<header>
-		<a href="@routes.Application.index" id="logo"><span>Home</span></a> |
-		<a href="@routes.Application.users"><span>Users</span></a> |
-		<a href="@routes.Application.roles"><span>Roles</span></a> |
-		@if( user != null ) {
-			<a href="@routes.Application.logout()"> Logout (@user.name)</a> 
+<head>
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("/stylesheets/jquery-ui.css")">
+	<script type="text/javascript" src="@routes.Assets.at("/javascripts/jquery-1.10.2.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("/javascripts/jquery-ui.js")"></script>
+	<script>
+		$(function() {
+			$("#tabs").tabs();
+		});
+	</script>
+	<script type="text/javascript">
+		function comboInit(thelist)
+		{
+		  theinput = document.getElementById(theinput);  
+		  var idx = thelist.selectedIndex;
+		  var content = thelist.options[idx].innerHTML;
+		  if(theinput.value == "")
+		    theinput.value = content;	
 		}
-	</header>
-  
-	<h2>Role list [@roles.size role(s)]:</h2>
+	
+		function combo(thelist, theinput)
+		{
+		  theinput = document.getElementById(theinput);  
+		  var idx = thelist.selectedIndex;
+		  var content = thelist.options[idx].innerHTML;
+		  //theinput.value = content;	
+		}
+	</script>
+</head>
 
-	<h2> Add a new role: </h2>
-	@form(routes.Application.newRole()) {
-	    @inputText(roleForm("name"))
-	    <input type="submit" value="create">
-	}
-		
-	<div class="container">
-		<div class="heading">
-			<div class="col">Name:</div>
-		  	<div class="col">Permissions:</div>
-		  	<div class="col">Delete role:</div>
-		  	<div class="col">Add permission:</div>
-		  	<div class="col">Remove permission:</div>
-		</div>
-		@for(role <- roles) {
-		  	<div class="table-row">
+<header>
+	<a href="@routes.Application.index" id="logo"><span>Home</span></a> | <a
+		href="@routes.Application.users"><span>Users</span></a> | <a
+		href="@routes.Application.roles"><span>Roles</span></a> | @if( user !=
+	null ) { <a href="@routes.Application.logout()"> Logout
+		(@user.name)</a> }
+</header>
+
+<h2>Role list [@roles.size role(s)]:</h2>
+
+<h2>Add a new role:</h2>
+@form(routes.Application.newRole()) { 
+	@inputText(roleForm("name"))
+	<input type="submit" value="create">
+}
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Manage roles</a></li>
+		<li><a href="#tabs-2">Manage user roles</a></li>
+	</ul>
+	<div id="tabs-1">
+		<div class="container">
+			<div class="heading">
+				<div class="col">Name:</div>
+				<div class="col">Permissions:</div>
+				<div class="col">Delete role:</div>
+				<div class="col">Add permission:</div>
+				<div class="col">Remove permission:</div>
+			</div>
+			@for(role <- roles) {
+			<div class="table-row">
 				<div class="col">@role.name</div>
-		  	  	<div class="col" style="width:50%">@role.permissions</div>
+				<div class="col" style="width: 50%">@role.permissions</div>
 				<div class="col">
-		  	  		@form(routes.Application.deleteRole(role.id)) {
-				 		<input type="submit" value="delete">
+					@form(routes.Application.deleteRole(role.id)) { 
+						<input type="submit" value="delete"> 
 					}
 				</div>
 				<div class="col">
 					@form(routes.Application.addPermission(role.id)) {
-						@inputText(roleForm("permission")) 
-						<input type="submit" value="Add">
+					@inputText(roleForm("permission"))
+					<input type="submit" value="Add">
 					}
 				</div>
 				<div class="col">
 					@form(routes.Application.removePermission(role.id)) {
-						@inputText(roleForm("permission")) 
-						<input type="submit" value="delete">
-					}
+					@inputText(roleForm("permission"))
+					<input type="submit" value="delete"> }
 				</div>
 			</div>
-		}	  
+			}
+		</div>
 	</div>
-}
+	<!-- End of tab-1 -->
+	
+	<div id="tabs-2">
+		<div class="container">
+			<div class="heading">
+				<div class="col">Email:</div>
+				<div class="col">Name:</div>
+				<div class="col">Roles:</div>
+				<div class="col">Add role:</div>
+				<div class="col">Remove role:</div>
+			</div>
+			@for(user <- users) {
+				<div class="table-row">
+					<div class="col">@user.email</div>
+					<div class="col">@user.name</div>
+					<!-- List user current roles: -->
+					<div class="col">
+						@for(userRole <- user.getRoles()) {
+							@for(role <- roles) {
+								@if(role.name.equalsIgnoreCase(userRole)) {
+									@userRole  
+								}
+							}
+						}
+					</div>
+					<!-- Display current available roles to add: -->
+					<div class="col">
+			  			@form(routes.Application.addRole(user.id)) {
+							<select name="availableRoles" onChange="combo(this, 'role')" onMouseOut="comboInit(this, 'role')" required="required">
+							@for(role <- roles) {
+								@if(!user.getRoles().contains(role.name)) {
+								  	<option>@role.name</option>
+								}  	
+							}
+							</select>
+							<input type="submit" id="role" name="role" value="Add"/>
+						}
+					</div>
+					
+					<!-- Display current roles to remove: -->
+					<div class="col">
+			  			@form(routes.Application.removeRole(user.id)) {
+							<select name="currentRoles" onChange="combo(this, 'role')" onMouseOut="comboInit(this, 'role')" required="required">
+							@for(role <- roles) {
+								@if(user.getRoles().contains(role.name)) {
+								  	<option>@role.name</option>
+								}  	
+							}
+							</select>
+							<input type="submit" id="role" name="role" value="Remove"/>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+	<!-- End of tab-2 -->
+	}
