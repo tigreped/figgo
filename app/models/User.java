@@ -57,6 +57,7 @@ public class User {
 
 	public static User authenticate(String email, String password) {
 		User user = findByEmail(email);
+		System.out.println("Login: " + email + "\nPassword: " + password);
 		if (user != null ) {
 			if (user.password.equalsIgnoreCase(password)) {
 				return user;
