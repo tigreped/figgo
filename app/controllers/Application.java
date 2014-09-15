@@ -9,7 +9,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import controllers.Application.Login;
+import views.html.login;
 
 public class Application extends Controller {
 
@@ -20,7 +20,6 @@ public class Application extends Controller {
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
-		//Form<CardTransaction> filledForm = cardTransactionForm.bindFromRequest();
 		return ok(views.html.index.render(User.findByEmail(session().get("email")), cardTransactionForm));
 	}
 
@@ -97,10 +96,7 @@ public class Application extends Controller {
 			return badRequest(views.html.roles.render(Role.all(), filledForm, userForm, User.all(),
 					User.findByEmail(session().get("email"))));
 		} else {
-			Role role = filledForm.get();
-			// Check if the role already exists:
-			if (!Role.exists(role))
-				Role.create(filledForm.get());
+			Role.create(filledForm.get());
 			return redirect(routes.Application.roles());
 		}
 	}

@@ -13,6 +13,7 @@ public class Secured extends Security.Authenticator {
 
 	@Override
 	public Result onUnauthorized(Context ctx) {
+		System.out.println("*** Unauthorized!");
 		return redirect(routes.Application.login());
 	}
 } // EOF

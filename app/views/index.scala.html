@@ -32,6 +32,25 @@
 			@inputText(cardTransactionForm("to"))
 			<input type="submit" value="transfer">
 		}
-
 	}
+	
+	<div id="statement">
+		<h2>User statement between 01/01/2014 and 10/10/2014:</h2>
+		<div class="container">
+			<div class="heading">
+		  		<div class="col">From:</div>
+		  		<div class="col">To:</div>
+		  		<div class="col">Amount:</div>
+		  		<div class="col">Date:</div>
+			</div>
+			@for(cardTransaction <- user.getCardStatement("01/01/2014", "10/10/2014").getCardTransactions()) {
+				<div class="table-row">
+					<div class="col">@User.findById(cardTransaction.getOriginUserId()).getName()</div>
+					<div class="col">@User.findById(cardTransaction.getDestinyUserId()).getName()</div>
+					<div class="col">@cardTransaction.getAmount()</div>
+					<div class="col">@cardTransaction.getTimestamp()</div>
+				</div>	 
+			}
+		</div>	
+	</div>
 }	

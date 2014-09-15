@@ -19,18 +19,30 @@ public class CardTransaction {
 	public String destinyUserId;
 	public Date timestamp;
 	public double amount;
-	
+
+	/**
+	 * Default class constructor
+	 */
 	public CardTransaction() {
-		
 	}
 
-	public CardTransaction(String originUserId, String destinyUserId, Date timestamp, double amount) {
+	/**
+	 * Class main constructor
+	 * 
+	 * @param originUserId
+	 * @param destinyUserId
+	 * @param timestamp
+	 * @param amount
+	 */
+	public CardTransaction(String originUserId, String destinyUserId,
+			Date timestamp, double amount) {
 		setOriginUserId(originUserId);
 		setDestinyUserId(destinyUserId);
 		setTimestamp(timestamp);
 		setAmount(amount);
 		CardTransaction.create(this);
 	}
+
 	public static List<CardTransaction> all() {
 		return getCollection().find().toArray();
 	}
@@ -55,7 +67,7 @@ public class CardTransaction {
 	}
 
 	public static JacksonDBCollection<CardTransaction, String> getCollection() {
-		return Collections.getCardTransactionCollection();
+		return models.Collections.getCardTransactionCollection();
 	}
 
 	/**
@@ -65,22 +77,8 @@ public class CardTransaction {
 	 * @return
 	 */
 	public static ArrayList<CardTransaction> getTransacionsPerUser(String userId) {
-		DBCursor<CardTransaction> cursor = getCollection().find().is("destinyUserId", userId);
-		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
-		while (cursor.hasNext()) {
-			transactions.add(cursor.next());
-		}
-		return transactions;
-	}
-	
-	/**
-	 * Retrieve all card transactions made to a user from a given point in time forward.
-	 * @param userId
-	 * @param date
-	 * @return
-	 */
-	public static ArrayList<CardTransaction> getTransactionsToUserFromDate(String userId, Date date) {
-		DBCursor<CardTransaction> cursor = getCollection().find().is("destinyUserId", userId).greaterThan("timestamp", date);
+		DBCursor<CardTransaction> cursor = getCollection().find().is(
+				"destinyUserId", userId);
 		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
 		while (cursor.hasNext()) {
 			transactions.add(cursor.next());
@@ -89,86 +87,124 @@ public class CardTransaction {
 	}
 
 	/**
-	 * Retrieve all card transactions made from a given user from a given point in time forward.
+	 * Retrieve all card transactions made to a user from a given point in time
+	 * forward.
+	 * 
 	 * @param userId
 	 * @param date
 	 * @return
 	 */
-	public static ArrayList<CardTransaction> getTransactionsFromUserFromDate(String userId, Date date) {
-		DBCursor<CardTransaction> cursor = getCollection().find().is("originUserId", userId).greaterThan("timestamp", date);
+	public static ArrayList<CardTransaction> getTransactionsToUserFromDate(
+			String userId, Date date) {
+		DBCursor<CardTransaction> cursor = getCollection().find()
+				.is("destinyUserId", userId).greaterThan("timestamp", date);
 		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
 		while (cursor.hasNext()) {
 			transactions.add(cursor.next());
 		}
 		return transactions;
 	}
-	
+
 	/**
-	 * @return the id
+	 * Retrieve all card transactions made from a given user from a given point
+	 * in time forward.
+	 * 
+	 * @param userId
+	 * @param date
+	 * @return
 	 */
+	public static ArrayList<CardTransaction> getTransactionsFromUserFromDate(
+			String userId, Date date) {
+		DBCursor<CardTransaction> cursor = getCollection().find()
+				.is("originUserId", userId).greaterThan("timestamp", date);
+		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
+		while (cursor.hasNext()) {
+			transactions.add(cursor.next());
+		}
+		return transactions;
+	}
+
+	/**
+	 * Retrieve all card transactions made from a given user from a given period
+	 * 
+	 * @param userId
+	 * @param start
+	 *            the beginning of the considered period
+	 * @param start
+	 *            the end of the considered period
+	 * @return
+	 */
+	public static ArrayList<CardTransaction> getTransactionsFromUserBetweenDate(
+			String userId, Date start, Date end) {
+		DBCursor<CardTransaction> cursor = getCollection().find()
+				.is("originUserId", userId).greaterThan("timestamp", start).lessThan("timestamp", end);
+		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
+		while (cursor.hasNext()) {
+			transactions.add(cursor.next());
+		}
+		return transactions;
+	}
+
+	/**
+	 * Retrieve all card transactions made to a given user from a given period
+	 * 
+	 * @param userId
+	 * @param start
+	 *            the beginning of the considered period
+	 * @param start
+	 *            the end of the considered period
+	 * @return
+	 */
+	public static ArrayList<CardTransaction> getTransactionsToUserBetweenDate(
+			String userId, Date start, Date end) {
+		DBCursor<CardTransaction> cursor = getCollection().find()
+				.is("destinyUserId", userId).greaterThan("timestamp", start)
+				.lessThan("timestamp", end);
+		ArrayList<CardTransaction> transactions = new ArrayList<CardTransaction>();
+		while (cursor.hasNext()) {
+			transactions.add(cursor.next());
+		}
+		return transactions;
+	}
+
+	/** Getters and Setters */
+
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the originUserId
-	 */
 	public String getOriginUserId() {
 		return originUserId;
 	}
 
-	/**
-	 * @param originUserId the originUserId to set
-	 */
 	public void setOriginUserId(String originUserId) {
 		this.originUserId = originUserId;
 	}
 
-	/**
-	 * @return the destinyUserId
-	 */
 	public String getDestinyUserId() {
 		return destinyUserId;
 	}
 
-	/**
-	 * @param destinyUserId the destinyUserId to set
-	 */
 	public void setDestinyUserId(String destinyUserId) {
 		this.destinyUserId = destinyUserId;
 	}
 
-	/**
-	 * @return the timestamp
-	 */
 	public Date getTimestamp() {
 		return timestamp;
 	}
 
-	/**
-	 * @param timestamp the timestamp to set
-	 */
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 
-	/**
-	 * @return the amount
-	 */
 	public double getAmount() {
 		return amount;
 	}
 
-	/**
-	 * @param amount the amount to set
-	 */
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}

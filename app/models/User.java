@@ -1,5 +1,7 @@
 package models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class User {
 	public double cardBalance;
 	public Date cardBalanceTimestamp;
 	
-	private static final JacksonDBCollection<User, String> collection = Collections
+	private static final JacksonDBCollection<User, String> collection = models.Collections
 			.getUserCollection();
 
 	public static List<User> all() {
@@ -47,6 +49,10 @@ public class User {
 			return user;
 		}
 		return null;
+	}
+	
+	public static User findById(String id) {
+		return getCollection().findOneById(id);
 	}
 
 	public static User authenticate(String email, String password) {
@@ -203,5 +209,78 @@ public class User {
 		
 		// Update balance:
 		User.create(user);
+	}
+	
+	/**
+	 * Return the users's bank statement
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public CardStatement getCardStatement(String startDate, String endDate) {
+		// Generate default point zero in time (Millenium bug).
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date startDateFormatted = new Date();
+		Date endDateFormatted = new Date();
+		try {
+			startDateFormatted  = sdf.parse(startDate);
+			endDateFormatted  = sdf.parse(endDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return CardStatement.getCardStatement(id, startDateFormatted, endDateFormatted);
+	}
+
+	/** Getters and setters: */
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public double getCardBalance() {
+		return cardBalance;
+	}
+
+	public void setCardBalance(double cardBalance) {
+		this.cardBalance = cardBalance;
+	}
+
+	public Date getCardBalanceTimestamp() {
+		return cardBalanceTimestamp;
+	}
+
+	public void setCardBalanceTimestamp(Date cardBalanceTimestamp) {
+		this.cardBalanceTimestamp = cardBalanceTimestamp;
+	}
+
+	public void setRoles(ArrayList<String> roles) {
+		this.roles = roles;
 	}
 }

@@ -1,6 +1,7 @@
 # general
 *~
 *.log
+*.swp
 tmp
 dump
  

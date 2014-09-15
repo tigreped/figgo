@@ -83,6 +83,7 @@ public class Role {
 			else {
 				// Check that the permission is not listed yet
 				if (!role.permissions.contains(permission)) {
+					System.out.println("New role: " + permission);
 					role.permissions.add(permission);
 					getCollection().updateById(id, role);
 				}
@@ -106,27 +107,17 @@ public class Role {
 			}
 		}
 	}
-
+	
 	/**
 	 * Return a list with all available roles
-	 * 
 	 * @return
 	 */
 	public static ArrayList<String> getAllRoles() {
 		List<Role> allRoles = getCollection().find().toArray();
 		ArrayList<String> roles = new ArrayList<String>();
-		for (Role r : allRoles) {
-			roles.add(r.name);
+		for (Role r: allRoles) {
+			roles.add(r.name);			
 		}
 		return roles;
-	}
-
-	public static boolean exists(Role role) {
-		Role exists = Role.findByName(role.name);
-		// Does not exist, return false:
-		if (exists.equals(null))
-			return false;
-		// Already exists, return true:
-		return true;
 	}
 }
