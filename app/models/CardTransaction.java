@@ -167,6 +167,10 @@ public class CardTransaction {
 		return transactions;
 	}
 
+	public String toString() {
+		return "From: " + User.findById(getOriginUserId()).getEmail() + " To: " + getDestinyUserId() + " | " + getTimestamp() + " | "  + getAmount();
+	}
+	
 	/** Getters and Setters */
 
 	public String getId() {

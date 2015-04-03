@@ -33,13 +33,15 @@
 			<input type="submit" value="Transfer">
 		}
 	}
+	
 	@form(routes.Application.newCardTransaction()) {
 		@inputText(cardTransactionForm("start"))
 		@inputText(cardTransactionForm("end"))
 		<input type="submit" value="Get statement">
 	}
+	
 	<div id="statement">
-		<h2>User statement between 01/01/2014 and 10/10/2014:</h2>
+		<h2>User statement between @user.getCardStatement("01/01/1900", "04/04/2015").getFormattedStartDate() and @user.getCardStatement("01/01/1900", "04/04/2015").getEnd():</h2>
 		
 		<div class="container">
 			<div class="heading">
@@ -48,7 +50,7 @@
 		  		<div class="col">Amount:</div>
 		  		<div class="col">Date:</div>
 			</div>
-			@for(cardTransaction <- user.getCardStatement("01/01/2014", "10/10/2014").getCardTransactions()) {
+			@for(cardTransaction <- user.getCardStatement("01/01/1900", "04/04/2015").getCardTransactions()) {
 				<div class="table-row">
 					<div class="col">@User.findById(cardTransaction.getOriginUserId()).getName()</div>
 					<div class="col">@User.findById(cardTransaction.getDestinyUserId()).getName()</div>
@@ -62,10 +64,15 @@
 								@cardTransaction.getAmount()
 							</positive>	
 						}
-					</div>	
+					</div>
 					<div class="col">@cardTransaction.getTimestamp()</div>
-				</div>	 
+				</div>
 			}
+		</div>
+		<div class="container">
+			<div class="heading">
+		  		<div class="col">Total balance for the period: @user.getCardStatement("01/01/2000", "04/04/2015").getEndBalance()</div>
+			</div>
 		</div>	
 	</div>
 }	

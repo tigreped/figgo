@@ -20,7 +20,7 @@ public class Application extends Controller {
 			.form(CardTransaction.class);
 
 	@Security.Authenticated(Secured.class)
-	public static Result index() {
+	public static Result index() { 
 		return ok(views.html.index.render(User.findByEmail(session().get("email")), cardTransactionForm));
 	}
 
@@ -144,6 +144,7 @@ public class Application extends Controller {
 			User from = User.findByEmail(session().get("email"));
 			double balance = User.getUpdatedCardBalance(from); 
 			double amount = new Double(filledForm.field("amount").value());
+			// Avoid making transactions when the user has insufficient balance
 			if (balance >= amount) {
 				// 2) Check destiny validity:
 				User to = User.findByEmail(filledForm.field("to").value());
@@ -154,8 +155,13 @@ public class Application extends Controller {
 					User.updateCardBalance(from);
 					User.updateCardBalance(to);
 				}
+				return redirect(routes.Application.index());
 			}
-			return redirect(routes.Application.index());
+			// Insufficient balance:
+			else {
+				// TODO: redirect to index and display alert
+				return internalServerError("Insufficient balance!");
+			}
 		}
 	}
 	

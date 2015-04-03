@@ -14,7 +14,7 @@ public class Facade {
 	 */
 	public static Date formatDate(String date, String simpleDateFormat) {
 		// Generate default point zero in time (Millenium bug).
-		SimpleDateFormat sdf = new SimpleDateFormat();
+		SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);
 		Date formattedDate= new Date();
 		try {
 			formattedDate = sdf.parse(date);
@@ -24,4 +24,3 @@ public class Facade {
 		return formattedDate;
 	}
 }
-

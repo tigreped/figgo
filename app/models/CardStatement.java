@@ -10,8 +10,9 @@ import util.Facade;
 
 /**
  * POJO to store information about a single card statement
+ * 
  * @author pedro
- *
+ * 
  */
 public class CardStatement {
 	public static Date dateZero = new Date();
@@ -21,9 +22,10 @@ public class CardStatement {
 	String userId;
 	Date start;
 	Date end;
-	
+
 	/**
 	 * Class main constructor
+	 * 
 	 * @param userId
 	 * @param start
 	 * @param end
@@ -35,67 +37,93 @@ public class CardStatement {
 		getZeroPointInTime();
 	}
 
-	public static CardStatement getCardStatement(String userId,
-			Date start, Date end) {
+	/**
+	 * This method returns a full card statement based on the start and end dates provided as the period of the required statement 
+	 * @param userId
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static CardStatement getCardStatement(String userId, Date start,
+			Date end) {
 		CardStatement cardStatement = new CardStatement(userId, start, end);
-		ArrayList<CardTransaction> cardTransactionsAux = null;		
 		ArrayList<CardTransaction> statementCardTrancations = null;
-		
-		// 1) Calculate user balance from first transaction(point 0 in time) until the start date:
+
+		// 1) Calculate user balance from first transaction(point 0 in time)
+		// until the start date:
 		double balance = 0;
+
 		// Negative transactions reduce balance:
-		cardTransactionsAux = CardTransaction.getTransactionsFromUserBetweenDate(userId, dateZero, start);
-		for (CardTransaction c: cardTransactionsAux) {
+		statementCardTrancations = CardTransaction
+				.getTransactionsFromUserBetweenDate(userId, dateZero, start);
+		for (CardTransaction c : statementCardTrancations) {
 			balance -= c.getAmount();
 		}
+
 		// Positive transactions increase balance:
-		cardTransactionsAux = CardTransaction.getTransactionsToUserBetweenDate(userId, dateZero, start);
-		for (CardTransaction c: cardTransactionsAux) {
+		statementCardTrancations = CardTransaction
+				.getTransactionsToUserBetweenDate(userId, dateZero, start);
+		for (CardTransaction c : statementCardTrancations) {
 			balance += c.getAmount();
 		}
+
 		cardStatement.setStartBalance(balance);
 
 		// 2) Get user transactions from start date until end date
-		
+
 		// Transactions from user:
-		statementCardTrancations = CardTransaction.getTransactionsFromUserBetweenDate(userId, start, end);
-		
-		// Update balance with transactions from the user:
-		for (CardTransaction c: cardTransactionsAux) {
+		statementCardTrancations = CardTransaction
+				.getTransactionsFromUserBetweenDate(userId, start, end);
+
+		// Update balance with transactions from the user and add transaction
+		// cardStatements:
+		for (CardTransaction c : statementCardTrancations) {
 			balance -= c.getAmount();
+			cardStatement.getCardTransactions().add(c);
 		}
-		
+
 		// Transactions to user:
-		cardTransactionsAux = CardTransaction.getTransactionsToUserBetweenDate(userId, start, end);
-		
-		// Update balance with transactions to the user:
-		for (CardTransaction c: cardTransactionsAux) {
+		statementCardTrancations = CardTransaction
+				.getTransactionsToUserBetweenDate(userId, start, end);
+
+		// Update balance with transactions to the user and add transaction
+		// cardStatements:
+		for (CardTransaction c : statementCardTrancations) {
 			balance += c.getAmount();
+			cardStatement.getCardTransactions().add(c);
 		}
-		
+
 		// Update final balance:
 		cardStatement.setEndBalance(balance);
-		
-		// Add card transactions "to" the user to the card transactions "from" the user:
-		statementCardTrancations.addAll(cardTransactionsAux);
-		
-		// Order transactions by ascending timestamp
-		Collections.sort(statementCardTrancations, new Comparator<CardTransaction>() {
-	        @Override
-	        public int compare(CardTransaction cardTransaction1, CardTransaction cardTransaction2)
-	        {
-	            return  cardTransaction1.timestamp.compareTo(cardTransaction2.timestamp);
-	        }
-	    });
-		
+
+		// receive both "from" and "to" transactions:
+		statementCardTrancations = cardStatement.getCardTransactions();
+
+		// Sort transactions by ascending timestamp
+		Collections.sort(statementCardTrancations,
+				new Comparator<CardTransaction>() {
+					@Override
+					public int compare(CardTransaction cardTransaction1,
+							CardTransaction cardTransaction2) {
+						return cardTransaction1.timestamp
+								.compareTo(cardTransaction2.timestamp);
+					}
+				});
+
 		cardStatement.setCardTransactions(statementCardTrancations);
+
 		return cardStatement;
+	}
+
+	public Date getFormattedStartDate() {
+		return Facade.formatDate(getStart().toString(), Constants.DATE_FORMAT);
 	}
 	
 	public void getZeroPointInTime() {
-		dateZero = Facade.formatDate(Constants.TIME_ZERO, Constants.DATE_FORMAT);
+		dateZero = Facade
+				.formatDate(Constants.TIME_ZERO, Constants.DATE_FORMAT);
 	}
-	
+
 	public double getStartBalance() {
 		return startBalance;
 	}
@@ -108,8 +136,7 @@ public class CardStatement {
 		return cardTransactions;
 	}
 
-	public void setCardTransactions(
-			ArrayList<CardTransaction> cardTransactions) {
+	public void setCardTransactions(ArrayList<CardTransaction> cardTransactions) {
 		this.cardTransactions = cardTransactions;
 	}
 
