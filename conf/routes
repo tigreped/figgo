@@ -19,8 +19,9 @@ GET		/logout						controllers.Application.logout()
 GET 	/users						controllers.Application.users()
 POST 	/users			    		controllers.Application.newUser()
 POST	/users/:id/delete	    	controllers.Application.deleteUser(id: String)
-POST	/users/:userId/addRole		controllers.Application.addRole(userId: String)
-POST	/users/:userId/removeRole	controllers.Application.removeRole(userId: String)
+POST	/users/:id/addRole			controllers.Application.addRole(id: String)
+POST	/users/:id/removeRole		controllers.Application.removeRole(id: String)
+POST 	/users/:id/getCardStatement	controllers.Application.getCardStatement(id: String)
 
 #Roles
 GET 	/roles			    		controllers.Application.roles()

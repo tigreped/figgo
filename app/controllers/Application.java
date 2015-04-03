@@ -142,12 +142,12 @@ public class Application extends Controller {
 		} else {
 			// 1) Check if balance is enough:
 			User from = User.findByEmail(session().get("email"));
-			double balance = User.getCardBalance(from); 
+			double balance = User.getUpdatedCardBalance(from); 
 			double amount = new Double(filledForm.field("amount").value());
 			if (balance >= amount) {
 				// 2) Check destiny validity:
 				User to = User.findByEmail(filledForm.field("to").value());
-				if (to != null) {
+				if ( to != null && !to.getId().equalsIgnoreCase(from.getId()) ) {
 					// 3) Create operation:
 					new CardTransaction(from.id, to.id, new Date(), amount);
 					// Update balances:
@@ -155,8 +155,13 @@ public class Application extends Controller {
 					User.updateCardBalance(to);
 				}
 			}
-			return redirect(routes.Application.users());
+			return redirect(routes.Application.index());
 		}
+	}
+	
+	//TODO: criar método pra receber as datas trazidas via formulário para definir o período do extrato!
+	public static Result getCardStatement(String id) {
+		return redirect(routes.Application.users());
 	}
 
 	public static Result login() {
@@ -181,7 +186,7 @@ public class Application extends Controller {
 			return redirect(routes.Application.index());
 		}
 	}
-
+	
 	public static class Login {
 
 		public String email;

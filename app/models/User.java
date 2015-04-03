@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import util.Constants;
+import util.Facade;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
@@ -23,7 +25,7 @@ public class User {
 	public String password;
 	public double cardBalance;
 	public Date cardBalanceTimestamp;
-	
+
 	private static final JacksonDBCollection<User, String> collection = models.Collections
 			.getUserCollection();
 
@@ -50,7 +52,7 @@ public class User {
 		}
 		return null;
 	}
-	
+
 	public static User findById(String id) {
 		return getCollection().findOneById(id);
 	}
@@ -58,11 +60,11 @@ public class User {
 	public static User authenticate(String email, String password) {
 		User user = findByEmail(email);
 		System.out.println("Login: " + email + "\nPassword: " + password);
-		if (user != null ) {
+		if (user != null) {
 			if (user.password.equalsIgnoreCase(password)) {
 				return user;
 			}
-		}	
+		}
 		return null;
 	}
 
@@ -152,16 +154,17 @@ public class User {
 			}
 		}
 	}
-	
+
 	/**
-	 * Retrieves user's balance from database, checks for more recent transactions
-	 * and updates the balance if not updated (i.e., if there are card
-	 * transactions with a timestamp more recent than the current balance timestemp)
+	 * Retrieves user's balance from database, checks for more recent
+	 * transactions and updates the balance if not updated (i.e., if there are
+	 * card transactions with a timestamp more recent than the current balance
+	 * timestemp)
 	 * 
 	 * @param user
 	 * @return
 	 */
-	public static double getCardBalance(User user) {
+	public static double getUpdatedCardBalance(User user) {
 		// Check if the user is not null
 		if (!user.equals(null)) {
 			// Update balance:
@@ -173,63 +176,61 @@ public class User {
 
 	/**
 	 * Updates the user balance retrieving current balance and adding new sum
+	 * 
 	 * @param sum
 	 */
 	public static void updateCardBalance(User user, double sum) {
-		user.cardBalance += sum ;
+		user.cardBalance += sum;
 	}
-	
+
 	public static void updateCardBalance(User user) {
 		// Check if balanceTimestamp is greater or equal to the timestamp of
 		// the user's last cardTransaction
-		ArrayList<CardTransaction> transactionsTo = CardTransaction.getTransactionsToUserFromDate(user.id,
-				user.cardBalanceTimestamp);
-		ArrayList<CardTransaction> transactionsFrom = CardTransaction.getTransactionsFromUserFromDate(user.id,
-				user.cardBalanceTimestamp);
-		// Sum the amount of all recent transactions: 
+		ArrayList<CardTransaction> transactionsTo = CardTransaction
+				.getTransactionsToUserFromDate(user.id,
+						user.cardBalanceTimestamp);
+		ArrayList<CardTransaction> transactionsFrom = CardTransaction
+				.getTransactionsFromUserFromDate(user.id,
+						user.cardBalanceTimestamp);
+		// Sum the amount of all recent transactions:
 		double sum = 0;
 		if (transactionsTo.size() > 0) {
 			// Cards received:
-			for (CardTransaction ct: transactionsTo) {
-				if(user.cardBalanceTimestamp.before(ct.getTimestamp())) 
+			for (CardTransaction ct : transactionsTo) {
+				if (user.cardBalanceTimestamp.before(ct.getTimestamp()))
 					user.cardBalanceTimestamp = ct.getTimestamp();
 				sum += ct.amount;
 			}
 		}
 		if (transactionsFrom.size() > 0) {
 			// Cards given:
-			for (CardTransaction ct: transactionsFrom) {
-				if(user.cardBalanceTimestamp.before(ct.getTimestamp())) 
+			for (CardTransaction ct : transactionsFrom) {
+				if (user.cardBalanceTimestamp.before(ct.getTimestamp()))
 					user.cardBalanceTimestamp = ct.getTimestamp();
 				sum -= ct.amount;
 			}
-		}	
-		
+		}
+
 		// Add the value to current balance
 		updateCardBalance(user, sum);
-		
+
 		// Update balance:
 		User.create(user);
 	}
-	
+
 	/**
 	 * Return the users's bank statement
+	 * 
 	 * @param start
 	 * @param end
 	 * @return
 	 */
 	public CardStatement getCardStatement(String startDate, String endDate) {
 		// Generate default point zero in time (Millenium bug).
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date startDateFormatted = new Date();
-		Date endDateFormatted = new Date();
-		try {
-			startDateFormatted  = sdf.parse(startDate);
-			endDateFormatted  = sdf.parse(endDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return CardStatement.getCardStatement(id, startDateFormatted, endDateFormatted);
+		Date startDateFormatted = Facade.formatDate(startDate, Constants.DATE_FORMAT);
+		Date endDateFormatted = Facade.formatDate(endDate, Constants.DATE_FORMAT);
+		return CardStatement.getCardStatement(id, startDateFormatted,
+				endDateFormatted);
 	}
 
 	/** Getters and setters: */
@@ -265,10 +266,6 @@ public class User {
 		this.password = password;
 	}
 
-	public double getCardBalance() {
-		return cardBalance;
-	}
-
 	public void setCardBalance(double cardBalance) {
 		this.cardBalance = cardBalance;
 	}
@@ -283,5 +280,9 @@ public class User {
 
 	public void setRoles(ArrayList<String> roles) {
 		this.roles = roles;
+	}
+
+	public double getCardBalance() {
+		return cardBalance;
 	}
 }

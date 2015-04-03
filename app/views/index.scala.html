@@ -30,12 +30,17 @@
 		@form(routes.Application.newCardTransaction()) {
 			@inputText(cardTransactionForm("amount"))
 			@inputText(cardTransactionForm("to"))
-			<input type="submit" value="transfer">
+			<input type="submit" value="Transfer">
 		}
 	}
-	
+	@form(routes.Application.newCardTransaction()) {
+		@inputText(cardTransactionForm("start"))
+		@inputText(cardTransactionForm("end"))
+		<input type="submit" value="Get statement">
+	}
 	<div id="statement">
 		<h2>User statement between 01/01/2014 and 10/10/2014:</h2>
+		
 		<div class="container">
 			<div class="heading">
 		  		<div class="col">From:</div>
@@ -47,7 +52,17 @@
 				<div class="table-row">
 					<div class="col">@User.findById(cardTransaction.getOriginUserId()).getName()</div>
 					<div class="col">@User.findById(cardTransaction.getDestinyUserId()).getName()</div>
-					<div class="col">@cardTransaction.getAmount()</div>
+					<div class="col">
+						@if( user.getName().equalsIgnoreCase(User.findById(cardTransaction.getOriginUserId()).getName())) {
+							<negative>
+								- @cardTransaction.getAmount()
+							</negative>	
+						} else {
+							<positive>
+								@cardTransaction.getAmount()
+							</positive>	
+						}
+					</div>	
 					<div class="col">@cardTransaction.getTimestamp()</div>
 				</div>	 
 			}

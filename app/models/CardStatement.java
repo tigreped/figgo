@@ -1,11 +1,12 @@
 package models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+
+import util.Constants;
+import util.Facade;
 
 /**
  * POJO to store information about a single card statement
@@ -91,16 +92,8 @@ public class CardStatement {
 		return cardStatement;
 	}
 	
-	
 	public void getZeroPointInTime() {
-		// Generate default point zero in time (Millenium bug).
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		dateZero = new Date();
-		try {
-			dateZero = sdf.parse("01/01/2000");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		dateZero = Facade.formatDate(Constants.TIME_ZERO, Constants.DATE_FORMAT);
 	}
 	
 	public double getStartBalance() {
