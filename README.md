@@ -3,7 +3,7 @@ figgo
 
 An application to manage cultural collectives that work with the concept of solidarity economy and complementary currency.
 
-Supports:
+The main goal of the tool is to support:
 
 1) Users<br/>
 2) Administration<br/>
@@ -16,5 +16,5 @@ Supports:
 Dependencies:
 
 1) Java 1.7<br/>
-2) Play Framework<br/>
-3) MongoDB<br/>
+2) Play Framework v2.2.2 <br/>
+3) MongoDB v2.4.6<br/>
