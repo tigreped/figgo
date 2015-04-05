@@ -167,7 +167,17 @@ public class Application extends Controller {
 	
 	//TODO: criar método pra receber as datas trazidas via formulário para definir o período do extrato!
 	public static Result getCardStatement(String id) {
-		return redirect(routes.Application.users());
+		Form<CardTransaction> filledForm = cardTransactionForm
+				.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.index.render(
+					User.findByEmail(session().get("email")), filledForm));
+		} else {
+			String start = new String(filledForm.field("start").value());
+			String end = new String(filledForm.field("end").value());
+			System.out.println("*** [Log] Start: " + start + " End: " + end);
+		}
+		return redirect(routes.Application.index());
 	}
 
 	public static Result login() {

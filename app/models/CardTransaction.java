@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import util.Facade;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
@@ -167,6 +168,15 @@ public class CardTransaction {
 		return transactions;
 	}
 
+	/**
+	 * Returns the timestamp Date as a String with a simple date format dd/MM/yyyy
+	 * 
+	 * @return
+	 */
+	public String getFormattedTimestamp() {
+		return Facade.getFormattedDate(getTimestamp());
+	}
+	
 	public String toString() {
 		return "From: " + User.findById(getOriginUserId()).getEmail() + " To: " + getDestinyUserId() + " | " + getTimestamp() + " | "  + getAmount();
 	}

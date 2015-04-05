@@ -15,7 +15,7 @@ import util.Facade;
  * 
  */
 public class CardStatement {
-	public static Date dateZero = new Date();
+	private static Date dateZero = null;
 	double startBalance = 0;
 	double endBalance = 0;
 	ArrayList<CardTransaction> cardTransactions = new ArrayList<CardTransaction>();
@@ -38,7 +38,9 @@ public class CardStatement {
 	}
 
 	/**
-	 * This method returns a full card statement based on the start and end dates provided as the period of the required statement 
+	 * This method returns a full card statement based on the start and end
+	 * dates provided as the period of the required statement
+	 * 
 	 * @param userId
 	 * @param start
 	 * @param end
@@ -115,10 +117,29 @@ public class CardStatement {
 		return cardStatement;
 	}
 
-	public Date getFormattedStartDate() {
-		return Facade.formatDate(getStart().toString(), Constants.DATE_FORMAT);
+	/**
+	 * Returns the startDate Date as a String with a simple date format
+	 * dd/MM/yyyy
+	 * 
+	 * @return
+	 */
+	public String getFormattedStartDate() {
+		return Facade.getFormattedDate(getStart());
 	}
-	
+
+	/**
+	 * Returns the endDate Date as a String with a simple date format dd/MM/yyyy
+	 * 
+	 * @return
+	 */
+	public String getFormattedEndDate() {
+		return Facade.getFormattedDate(getEnd());
+	}
+
+	/**
+	 * This method is supposed to represent the system's starting point in time,
+	 * arbitrarily set to Jan 1st 2000.
+	 */
 	public void getZeroPointInTime() {
 		dateZero = Facade
 				.formatDate(Constants.TIME_ZERO, Constants.DATE_FORMAT);
