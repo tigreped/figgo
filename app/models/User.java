@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class User {
 	public String password;
 	public double cardBalance;
 	public Date cardBalanceTimestamp;
+	public static CardStatement cardStatement;
 
 	private static final JacksonDBCollection<User, String> collection = models.Collections
 			.getUserCollection();
@@ -68,10 +70,6 @@ public class User {
 
 	public static JacksonDBCollection<User, String> getCollection() {
 		return collection;
-	}
-
-	public ArrayList<String> getRoles() {
-		return roles;
 	}
 
 	/**
@@ -217,23 +215,63 @@ public class User {
 	}
 
 	/**
+	 * Return the users's bank default statement, from zero point in time to
+	 * current request time
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public CardStatement generateCardStatement() {
+		// Generate default point zero in time (Millenium bug).
+		Date startDateFormatted = Facade.formatDate(Constants.TIME_ZERO,
+				Constants.DATE_FORMAT);
+		
+		// Date interval must be the next day, once it statement counts until 00hh00 of the next day.
+
+		// Get a calendar instance, which defaults to "now"
+	    Calendar calendar = Calendar.getInstance();
+	     
+	    // Get a date to represent "today"
+	    calendar.getTime();
+	  
+	    // Add one day to the date/calendar
+	    calendar.add(Calendar.DAY_OF_YEAR, 1);
+	     
+	    // Now get "tomorrow"
+	    Date endDateFormatted = Facade.formatDate(Facade.getFormattedDate(calendar.getTime()),Constants.DATE_FORMAT);
+
+	    // Fetch card statement
+	    setCardStatement(CardStatement.getCardStatement(getId(), startDateFormatted,
+				endDateFormatted));
+	       
+		return getCardStatement();
+	}
+
+	/**
 	 * Return the users's bank statement
 	 * 
 	 * @param start
 	 * @param end
 	 * @return
 	 */
-	public CardStatement getCardStatement(String startDate, String endDate) {
-		// Generate default point zero in time (Millenium bug).
+	public CardStatement generateCardStatement(String startDate, String endDate) {
+		System.out.println("*** [Log] " + startDate + " " + endDate);
 		Date startDateFormatted = Facade.formatDate(startDate,
 				Constants.DATE_FORMAT);
+		
 		Date endDateFormatted = Facade.formatDate(endDate,
 				Constants.DATE_FORMAT);
-		return CardStatement.getCardStatement(id, startDateFormatted,
-				endDateFormatted);
+		
+		// Fetch card statement
+	    setCardStatement(CardStatement.getCardStatement(id, startDateFormatted,
+				endDateFormatted));
+	    
+	    return getCardStatement();
 	}
 
 	/** Getters and setters: */
+
 	public String getId() {
 		return id;
 	}
@@ -278,11 +316,26 @@ public class User {
 		this.cardBalanceTimestamp = cardBalanceTimestamp;
 	}
 
+	public ArrayList<String> getRoles() {
+		return roles;
+	}
+
 	public void setRoles(ArrayList<String> roles) {
 		this.roles = roles;
 	}
 
 	public double getCardBalance() {
 		return cardBalance;
+	}
+
+	public CardStatement getCardStatement() {
+		if (cardStatement == null) {
+			User.cardStatement = generateCardStatement();
+		}
+		return cardStatement;
+	}
+
+	public void setCardStatement(CardStatement cardStatement) {
+		User.cardStatement = cardStatement;
 	}
 }

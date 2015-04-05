@@ -60,6 +60,17 @@ h2 {
 	color: #fff;
 }
 
+.balance {
+	font-weight: bold;
+	display: table-row;
+	background-color: yellow;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	font-family: georgia;
+	color: #000;
+}
+
 .table-row {
 	display: table-row;
 	text-align: center;

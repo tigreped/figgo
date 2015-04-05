@@ -37,6 +37,12 @@ public class CardStatement {
 		getZeroPointInTime();
 	}
 
+	public CardStatement(String userId) {
+		// Call main constructor
+		this(userId, Facade.formatDate(Constants.TIME_ZERO,
+				Constants.DATE_FORMAT), new Date());
+	}
+
 	/**
 	 * This method returns a full card statement based on the start and end
 	 * dates provided as the period of the required statement
@@ -55,21 +61,25 @@ public class CardStatement {
 		// until the start date:
 		double balance = 0;
 
-		// Negative transactions reduce balance:
-		statementCardTrancations = CardTransaction
-				.getTransactionsFromUserBetweenDate(userId, dateZero, start);
-		for (CardTransaction c : statementCardTrancations) {
-			balance -= c.getAmount();
-		}
+		// Not necessary if the start date is the same as datezero
+		if (dateZero != start) {
+			// Negative transactions reduce balance:
+			statementCardTrancations = CardTransaction
+					.getTransactionsFromUserBetweenDate(userId, dateZero, start);
+			for (CardTransaction c : statementCardTrancations) {
+				balance -= c.getAmount();
+			}
 
-		// Positive transactions increase balance:
-		statementCardTrancations = CardTransaction
-				.getTransactionsToUserBetweenDate(userId, dateZero, start);
-		for (CardTransaction c : statementCardTrancations) {
-			balance += c.getAmount();
-		}
+			// Positive transactions increase balance:
+			statementCardTrancations = CardTransaction
+					.getTransactionsToUserBetweenDate(userId, dateZero, start);
+			for (CardTransaction c : statementCardTrancations) {
+				balance += c.getAmount();
+			}
 
-		cardStatement.setStartBalance(balance);
+			cardStatement.setStartBalance(balance);
+
+		}
 
 		// 2) Get user transactions from start date until end date
 
@@ -97,7 +107,7 @@ public class CardStatement {
 
 		// Update final balance:
 		cardStatement.setEndBalance(balance);
-
+		
 		// receive both "from" and "to" transactions:
 		statementCardTrancations = cardStatement.getCardTransactions();
 

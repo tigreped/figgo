@@ -166,15 +166,17 @@ public class Application extends Controller {
 	}
 	
 	public static Result getCardStatement(String id) {
+		User user = User.findById(id);
 		System.out.println("*** [Log] getCardStatement() id = " + id);
 		Form<CardTransaction> filledForm = cardTransactionForm
 				.bindFromRequest();
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.index.render(
-					User.findByEmail(session().get("email")), filledForm));
+					user, filledForm));
 		} else {
 			String start = new String(filledForm.field("start").value());
 			String end = new String(filledForm.field("end").value());
+			user.generateCardStatement(start, end);
 			System.out.println("*** [Log] Start: " + start + " End: " + end);
 		}
 		return redirect(routes.Application.index());

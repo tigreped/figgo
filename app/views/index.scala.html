@@ -46,7 +46,7 @@
 		When calling for a new card statement, update those date values and regenerate.	
 	-->
 	<div id="statement">
-		<h2>User statement between @user.getCardStatement("01/01/2000", "04/04/2015").getFormattedStartDate() and @user.getCardStatement("01/01/1900", "04/04/2015").getFormattedEndDate():</h2>
+		<h2>User statement between @user.getCardStatement().getFormattedStartDate() and @user.getCardStatement().getFormattedEndDate():</h2>
 		
 		<div class="container">
 			<div class="heading">
@@ -55,7 +55,13 @@
 		  		<div class="col">Amount:</div>
 		  		<div class="col">Date:</div>
 			</div>
-			@for(cardTransaction <- user.getCardStatement("01/01/2000", "04/04/2015").getCardTransactions()) {
+			<div class="balance">
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+		  		<div class="col">Previous balance: @user.getCardStatement().getStartBalance()</div>
+			</div>
+			@for(cardTransaction <- user.getCardStatement().getCardTransactions()) {
 				<div class="table-row">
 					<div class="col">@User.findById(cardTransaction.getOriginUserId()).getName()</div>
 					<div class="col">@User.findById(cardTransaction.getDestinyUserId()).getName()</div>
@@ -73,10 +79,12 @@
 					<div class="col">@cardTransaction.getFormattedTimestamp()</div>
 				</div>
 			}
-		</div>
-		<div class="container">
-			<div class="heading">
-		  		<div class="col">Total balance for the period: @user.getCardStatement("01/01/2000", "04/04/2015").getEndBalance()</div>
+		
+			<div class="balance">
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+		  		<div class="col">Total balance for the period: @user.getCardStatement().getEndBalance()</div>
 			</div>
 		</div>	
 	</div>
