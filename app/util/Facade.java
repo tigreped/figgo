@@ -21,7 +21,6 @@ public class Facade {
 		Date formattedDate = new Date();
 		try {
 			formattedDate = sdf.parse(date);
-			System.out.println("*** [Log] Date: " + date + " SDF: " + simpleDateFormat + " Formatted date: " + formattedDate.toString());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

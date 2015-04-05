@@ -165,8 +165,8 @@ public class Application extends Controller {
 		}
 	}
 	
-	//TODO: criar método pra receber as datas trazidas via formulário para definir o período do extrato!
 	public static Result getCardStatement(String id) {
+		System.out.println("*** [Log] getCardStatement() id = " + id);
 		Form<CardTransaction> filledForm = cardTransactionForm
 				.bindFromRequest();
 		if (filledForm.hasErrors()) {

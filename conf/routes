@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+POST	/cardTransactions			controllers.Application.newCardTransaction()
+POST 	/getCardStatement			controllers.Application.getCardStatement(id: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
@@ -21,7 +23,6 @@ POST 	/users			    		controllers.Application.newUser()
 POST	/users/:id/delete	    	controllers.Application.deleteUser(id: String)
 POST	/users/:id/addRole			controllers.Application.addRole(id: String)
 POST	/users/:id/removeRole		controllers.Application.removeRole(id: String)
-POST 	/users/:id/getCardStatement	controllers.Application.getCardStatement(id: String)
 
 #Roles
 GET 	/roles			    		controllers.Application.roles()
@@ -30,5 +31,3 @@ POST	/roles/:id/delete	    	controllers.Application.deleteRole(id: String)
 POST	/roles/:id/addPermission	controllers.Application.addPermission(id: String)
 POST	/roles/:id/removePermission	controllers.Application.removePermission(id: String)
 
-#Card Transactions
-POST	/cardTransactions			controllers.Application.newCardTransaction()

@@ -34,12 +34,17 @@
 		}
 	}
 	
-	@form(routes.Application.newCardTransaction()) {
+	@form(routes.Application.getCardStatement(user.id)) {
 		@inputText(cardTransactionForm("start"))
 		@inputText(cardTransactionForm("end"))
 		<input type="submit" value="Get statement">
 	}
 	
+	
+	<!--TODO: 
+		Add to user a default card statement, set from zero time to current date.
+		When calling for a new card statement, update those date values and regenerate.	
+	-->
 	<div id="statement">
 		<h2>User statement between @user.getCardStatement("01/01/2000", "04/04/2015").getFormattedStartDate() and @user.getCardStatement("01/01/1900", "04/04/2015").getFormattedEndDate():</h2>
 		

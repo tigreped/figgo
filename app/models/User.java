@@ -1,17 +1,15 @@
 package models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import util.Constants;
-import util.Facade;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
+import util.Constants;
+import util.Facade;
 
 public class User {
 
@@ -227,8 +225,10 @@ public class User {
 	 */
 	public CardStatement getCardStatement(String startDate, String endDate) {
 		// Generate default point zero in time (Millenium bug).
-		Date startDateFormatted = Facade.formatDate(startDate, Constants.DATE_FORMAT);
-		Date endDateFormatted = Facade.formatDate(endDate, Constants.DATE_FORMAT);
+		Date startDateFormatted = Facade.formatDate(startDate,
+				Constants.DATE_FORMAT);
+		Date endDateFormatted = Facade.formatDate(endDate,
+				Constants.DATE_FORMAT);
 		return CardStatement.getCardStatement(id, startDateFormatted,
 				endDateFormatted);
 	}
