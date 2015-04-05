@@ -18,3 +18,5 @@ Dependencies:
 1) Java 1.7<br/>
 2) Play Framework v2.2.2 <br/>
 3) MongoDB v2.4.6<br/>
+
+For more information visit the project's [wiki page](https://github.com/tigreped/figgo/wiki)
